@@ -1,0 +1,34 @@
+{
+  "name": "AliasVault",
+  "version": "0.2.1",
+  "slug": "aliasvault",
+  "description": "AliasVault password & alias manager",
+  "arch": ["amd64", "aarch64", "armv7"],
+
+  "startup": "services",
+  "boot": "auto",
+  "init": false,
+
+  "ports": {
+    "80/tcp": 3000,
+    "443/tcp": 3443
+  },
+
+  "ports_description": {
+    "80/tcp": "AliasVault HTTP",
+    "443/tcp": "AliasVault HTTPS (self-signed)"
+  },
+
+  "map": [
+    "share",
+    "addon_config"
+  ],
+
+  "options": {},
+
+  "schema": {},
+
+  "environment": {
+    "DATA_DIR": "/data"
+  }
+}
