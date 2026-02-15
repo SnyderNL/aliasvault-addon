@@ -27,6 +27,27 @@ Omdat Home Assistant add-ons standaard `/data` persistent maken, synchroniseert 
 - `/secrets`
 - `/certificates`
 
+### SSL certificaten (HA `/ssl` integratie)
+
+Deze add-on ondersteunt het gebruik van een **custom TLS certificaat** vanuit Home Assistant.
+
+- In `config.json` is `map: ["ssl", ...]` ingeschakeld.
+- De gebruiker configureert via add-on opties:
+  - `ssl: true|false`
+  - `certfile` (bijv. `fullchain.pem`)
+  - `keyfile` (bijv. `privkey.pem`)
+
+**Werking:**
+
+1. Home Assistant mount `/ssl` in de container.
+2. Tijdens container init leest `ha-persist-init.sh` `/data/options.json`.
+3. Als `ssl=true` en bestanden bestaan, kopieert de hook:
+   - `/ssl/<certfile>` → `/certificates/ssl/cert.pem`
+   - `/ssl/<keyfile>` → `/certificates/ssl/key.pem`
+4. Als bestanden ontbreken of `ssl=false`, valt AliasVault terug op zijn standaard certificaatlogica (self-signed of bestaande certs in `/certificates/ssl`).
+
+**Notitie:** `certfile`/`keyfile` zijn bestandsnamen (geen volledige paden). De bronmap is altijd `/ssl`.
+
 ## Bestandsstructuur
 
 - `aliasvault/config.json` — add-on metadata/configuratie
