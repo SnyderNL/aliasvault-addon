@@ -1,8 +1,8 @@
 {
   "name": "AliasVault",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "slug": "aliasvault",
-  "description": "AliasVault password & alias manager",
+  "description": "AliasVault for Home Assistant (community add-on)",
   "arch": ["amd64", "aarch64", "armv7"],
 
   "startup": "services",
@@ -27,6 +27,10 @@
   "options": {},
 
   "schema": {},
+
+  "url": "https://github.com/SnyderNL/aliasvault-addon",
+  "documentation": "https://github.com/SnyderNL/aliasvault-addon/blob/main/README.md",
+  "issue_tracker": "https://github.com/SnyderNL/aliasvault-addon/issues",
 
   "environment": {
     "DATA_DIR": "/data"
