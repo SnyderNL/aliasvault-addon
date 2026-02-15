@@ -1,0 +1,1 @@
+# aliasvault-addon
