@@ -1,83 +1,46 @@
-# AliasVault Home Assistant Add-on (BETA)
+# AliasVault Home Assistant Add-on
 
-⚠️ **Let op: Deze add-on is in BETA.**
-Deze versie is bedoeld voor testen. Gebruik in productie op eigen risico.
+Home Assistant add-on om **AliasVault** te draaien als self-hosted password & alias manager.
 
-Deze add-on integreert AliasVault in Home Assistant als een veilige wachtwoord-
-en aliasmanager.
+> ⚠️ Dit project is community/experimenteel. Test goed voordat je het in productie gebruikt.
 
----
+## Wat doet deze add-on?
 
-## ✨ Functionaliteiten
+- Draait AliasVault binnen Home Assistant
+- Biedt toegang via HTTP en HTTPS
+- Gebruikt het officiële AliasVault container-image als basis
+- Bevat add-on-specifieke aanpassingen voor Home Assistant runtime
 
-- AliasVault binnen Home Assistant
-- Self-signed HTTPS ondersteuning
-- HTTP en HTTPS toegang
-- Gebruikt officiële AliasVault Docker image
+## Installatie (Home Assistant)
 
----
-
-## 📦 Installatie
-
-1. Voeg deze repository toe aan Home Assistant
-2. Installeer de **AliasVault** add-on
-3. Start de add-on
-4. Wacht tot de installatie voltooid is
+1. Ga naar **Settings → Add-ons → Add-on Store**
+2. Voeg deze repository toe als custom repository
+3. Installeer **AliasVault**
+4. Start de add-on
 5. Open de webinterface
 
----
+## Toegang
 
-## 🌐 Toegang
+- HTTP: `http://<home-assistant-ip>:3000`
+- HTTPS: `https://<home-assistant-ip>:3443`
 
-Na installatie is AliasVault bereikbaar via:
+Bij self-signed certificaten kan je browser een waarschuwing tonen.
 
-### HTTPS (aanbevolen)
+## Beheer
 
-https://<HOME-ASSISTANT-IP>:3443
+AliasVault admin setup gebeurt via de AliasVault tooling in de container. Zie add-on logs voor actuele statusinformatie.
 
-Er verschijnt een beveiligingswaarschuwing omdat een self-signed certificaat
-wordt gebruikt.
+## Disclaimer
 
-### HTTP
+Deze add-on is **niet** de officiële AliasVault distributie. Voor officiële installatie-instructies, documentatie en support, gebruik de bronnen hieronder.
 
-http://<HOME-ASSISTANT-IP>:3000
+## Bronvermelding (upstream)
 
-Niet aanbevolen voor gevoelige data.
-
----
-
-## 🔐 Admin configuratie
-
-Na eerste start is er geen admin wachtwoord ingesteld.
-
-Om dit te configureren:
-
-docker exec -it aliasvault /bin/bash
-aliasvault reset-admin-password
-
-(Wordt later vereenvoudigd via de add-on)
+- Originele organisatie/repository: **AliasVault**
+- GitHub org: https://github.com/aliasvault
+- Hoofdrepository: https://github.com/aliasvault/aliasvault
+- Officiële docs: https://docs.aliasvault.net
 
 ---
 
-## 🚧 Status
-
-🟡 BETA / TESTFASE
-
-Bekende aandachtspunten:
-
-- Self-signed certificaten
-- Admin setup via CLI
-- Beperkte configuratie
-
-Feedback is welkom.
-
----
-
-## 📄 Licentie
-
-Deze add-on gebruikt de licentie van AliasVault.
-
-Meer info:
-https://docs.aliasvault.net
-
----
+Wil je bijdragen of issues melden voor deze Home Assistant add-on? Gebruik de issues van deze repository.

@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "version": "0.2.6",
+  "version": "0.0.1",
   "slug": "aliasvault",
   "description": "AliasVault password & alias manager",
   "arch": ["amd64", "aarch64", "armv7"],
