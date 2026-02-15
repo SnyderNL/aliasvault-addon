@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "slug": "aliasvault",
   "description": "AliasVault password & alias manager",
   "arch": ["amd64", "aarch64", "armv7"],
@@ -22,6 +22,13 @@
   "map": [
     "share",
     "addon_config"
+  ],
+
+  "backup": [
+    "database",
+    "logs",
+    "secrets",
+    "certificates"
   ],
 
   "options": {},
