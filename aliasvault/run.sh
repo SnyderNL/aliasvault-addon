@@ -1,21 +1,28 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-echo "[AliasVault] Starting..."
+echo "[AliasVault addon] Preparing persistent storage links..."
 
-# Force data directories
-mkdir -p /data/postgres
-mkdir -p /data/aliasvault
-mkdir -p /data/certs
+mkdir -p /data/database /data/logs /data/secrets
 
-# Redirect postgres data
-export PGDATA=/data/postgres
+link_path() {
+  local target="$1"
+  local link="$2"
 
-# Redirect AliasVault data
-export DATA_DIR=/data/aliasvault
+  if [ -L "$link" ]; then
+    return 0
+  fi
 
-# Redirect certs
-export SSL_DIR=/data/certs
+  if [ -e "$link" ]; then
+    rm -rf "$link"
+  fi
 
-# Start original entrypoint
-exec /entrypoint.sh
+  ln -s "$target" "$link"
+}
+
+link_path /data/database /database
+link_path /data/logs /logs
+link_path /data/secrets /secrets
+
+echo "[AliasVault addon] Starting upstream AliasVault init..."
+exec /init
