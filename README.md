@@ -36,7 +36,16 @@ Ja, dit wordt ondersteund.
 4. Vul `certfile` en `keyfile` in
 5. Herstart de add-on
 
-De add-on gebruikt dan jouw certificaat in plaats van alleen self-signed.
+Voorbeeldconfiguratie:
+
+```yaml
+ssl: true
+certfile: fullchain.pem
+keyfile: privkey.pem
+```
+
+De add-on gebruikt dan jouw certificaat uit `/ssl` in plaats van alleen self-signed.
+Als bestanden ontbreken, valt de add-on terug op de standaard certificaatafhandeling van AliasVault.
 
 ## Beheer
 
