@@ -34,6 +34,10 @@ AliasVault admin setup gebeurt via de AliasVault tooling in de container. Zie ad
 
 Deze add-on is **niet** de officiële AliasVault distributie. Voor officiële installatie-instructies, documentatie en support, gebruik de bronnen hieronder.
 
+## Licentie
+
+Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie `LICENSE`.
+
 ## Bronvermelding (upstream)
 
 - Originele organisatie/repository: **AliasVault**
