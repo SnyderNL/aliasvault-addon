@@ -1,4 +1,4 @@
-#!/command/with-contenv bash
+#!/usr/bin/env bash
 set -e
 
 echo "[AliasVault] Starting..."
