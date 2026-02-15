@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.3
+- Added Home Assistant `/ssl` certificate support via add-on options:
+  - `ssl` (enable/disable)
+  - `certfile`
+  - `keyfile`
+- Add-on now loads user-provided cert/key from `/ssl` when enabled.
+
 ## 0.0.1
 - Initial public Home Assistant add-on release for AliasVault.
 - Uses upstream AliasVault all-in-one image.

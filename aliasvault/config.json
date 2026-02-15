@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "slug": "aliasvault",
   "description": "AliasVault for Home Assistant (community add-on)",
   "arch": ["amd64", "aarch64", "armv7"],
@@ -21,12 +21,21 @@
 
   "map": [
     "share",
-    "addon_config"
+    "addon_config",
+    "ssl"
   ],
 
-  "options": {},
+  "options": {
+    "ssl": false,
+    "certfile": "fullchain.pem",
+    "keyfile": "privkey.pem"
+  },
 
-  "schema": {},
+  "schema": {
+    "ssl": "bool",
+    "certfile": "str?",
+    "keyfile": "str?"
+  },
 
   "url": "https://github.com/SnyderNL/aliasvault-addon",
   "documentation": "https://github.com/SnyderNL/aliasvault-addon/blob/main/README.md",

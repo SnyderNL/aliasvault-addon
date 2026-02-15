@@ -26,6 +26,18 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 
 Bij self-signed certificaten kan je browser een waarschuwing tonen.
 
+## Eigen SSL-certificaat gebruiken (Home Assistant)
+
+Ja, dit wordt ondersteund.
+
+1. Plaats je certificaatbestanden in de HA `/ssl` map (bijv. `fullchain.pem` en `privkey.pem`)
+2. Open de add-on configuratie
+3. Zet `ssl` op `true`
+4. Vul `certfile` en `keyfile` in
+5. Herstart de add-on
+
+De add-on gebruikt dan jouw certificaat in plaats van alleen self-signed.
+
 ## Beheer
 
 AliasVault admin setup gebeurt via de AliasVault tooling in de container. Zie add-on logs voor actuele statusinformatie.
