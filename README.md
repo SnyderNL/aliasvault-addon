@@ -10,8 +10,6 @@
 
 Home Assistant add-on om **AliasVault** te draaien als self-hosted password & alias manager.
 
-✅ Laatst getest: **v0.0.4** (clean install + startup in HA testomgeving)
-
 ## Quick links
 
 - 🚀 [Installatie](#installatie-home-assistant)
