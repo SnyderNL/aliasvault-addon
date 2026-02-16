@@ -9,7 +9,7 @@
 
 ## 0.0.2
 - Add-on store UI metadata improvements:
-  -Set repository URL, documentation link, and issue tracker.
+  - Set repository URL, documentation link, and issue tracker.
 - Added a dedicated add-on changelog file.
 
 ## 0.0.1
