@@ -1,0 +1,26 @@
+name: Feature request
+description: Stel een verbetering voor de Home Assistant add-on wrapper voor
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Welk probleem los je op?
+      placeholder: "Wat mis je nu?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Voorgestelde oplossing
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatieven
+    validations:
+      required: false

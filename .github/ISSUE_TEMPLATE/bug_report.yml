@@ -1,0 +1,59 @@
+name: Bug report
+description: Meld een bug in de Home Assistant add-on wrapper
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant versie
+      placeholder: "bijv. 2026.2.1"
+    validations:
+      required: true
+
+  - type: input
+    id: addon_version
+    attributes:
+      label: Add-on versie
+      placeholder: "bijv. 0.0.3"
+    validations:
+      required: true
+
+  - type: input
+    id: host_type
+    attributes:
+      label: Host type
+      placeholder: "bijv. Intel NUC (ESXi), Raspberry Pi 5, thin client"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Stappen om te reproduceren
+      placeholder: "1. ... 2. ... 3. ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Verwacht gedrag
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Huidig gedrag
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevante logs
+      description: Plak relevante add-on logs
+      render: shell
+    validations:
+      required: false

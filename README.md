@@ -1,8 +1,21 @@
 # AliasVault Home Assistant Add-on
 
+> ⚠️ **Unofficial community add-on**  
+> Dit project is geen officiële AliasVault distributie.  
+> Officiële projectlinks: [AliasVault GitHub](https://github.com/aliasvault/aliasvault) · [AliasVault docs](https://docs.aliasvault.net)
+
+[![Project stage](https://img.shields.io/badge/project%20stage-experimental-yellow.svg)](#)
+[![Latest release](https://img.shields.io/github/v/release/SnyderNL/aliasvault-addon)](https://github.com/SnyderNL/aliasvault-addon/releases)
+[![License](https://img.shields.io/github/license/SnyderNL/aliasvault-addon)](./LICENSE)
+
 Home Assistant add-on om **AliasVault** te draaien als self-hosted password & alias manager.
 
-> ⚠️ Dit project is community/experimenteel. Test goed voordat je het in productie gebruikt.
+## Quick links
+
+- 🚀 [Installatie](#installatie-home-assistant)
+- 📚 [Add-on documentatie](./aliasvault/DOCS.md)
+- 🐞 [Issues melden](https://github.com/SnyderNL/aliasvault-addon/issues)
+- 🔗 [Officieel AliasVault project](https://github.com/aliasvault/aliasvault)
 
 ## Wat doet deze add-on?
 
@@ -14,10 +27,11 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 ## Installatie (Home Assistant)
 
 1. Ga naar **Settings → Add-ons → Add-on Store**
-2. Voeg deze repository toe als custom repository
-3. Installeer **AliasVault**
-4. Start de add-on
-5. Open de webinterface
+2. Klik rechtsboven op **⋮ → Repositories**
+3. Voeg toe: `https://github.com/SnyderNL/aliasvault-addon`
+4. Installeer **AliasVault**
+5. Start de add-on
+6. Open de webinterface
 
 ## Toegang
 
@@ -26,17 +40,15 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 
 Bij self-signed certificaten kan je browser een waarschuwing tonen.
 
-## Eigen SSL-certificaat gebruiken (Home Assistant)
+## Eigen SSL-certificaat gebruiken
 
-Ja, dit wordt ondersteund.
-
-1. Plaats je certificaatbestanden in de HA `/ssl` map (bijv. `fullchain.pem` en `privkey.pem`)
-2. Open de add-on configuratie
+1. Plaats certificaatbestanden in HA `/ssl` map (bijv. `fullchain.pem` en `privkey.pem`)
+2. Open add-on configuratie
 3. Zet `ssl` op `true`
 4. Vul `certfile` en `keyfile` in
 5. Herstart de add-on
 
-Voorbeeldconfiguratie:
+Voorbeeld:
 
 ```yaml
 ssl: true
@@ -44,28 +56,27 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
-De add-on gebruikt dan jouw certificaat uit `/ssl` in plaats van alleen self-signed.
-Als bestanden ontbreken, valt de add-on terug op de standaard certificaatafhandeling van AliasVault.
+## Known Issues
 
-## Beheer
+Zie: [KNOWN_ISSUES.md](./KNOWN_ISSUES.md)
 
-AliasVault admin setup gebeurt via de AliasVault tooling in de container. Zie add-on logs voor actuele statusinformatie.
+## Roadmap
 
-## Disclaimer
+Zie: [ROADMAP.md](./ROADMAP.md)
 
-Deze add-on is **niet** de officiële AliasVault distributie. Voor officiële installatie-instructies, documentatie en support, gebruik de bronnen hieronder.
+## Support scope
+
+- Problemen met deze Home Assistant wrapper? → **issue in deze repo**
+- Problemen in AliasVault core? → **upstream**: https://github.com/aliasvault/aliasvault
+
+## Changelog
+
+Zie: [aliasvault/CHANGELOG.md](./aliasvault/CHANGELOG.md)
+
+## Bijdragen
+
+Zie: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Licentie
 
-Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie `LICENSE`.
-
-## Bronvermelding (upstream)
-
-- Originele organisatie/repository: **AliasVault**
-- GitHub org: https://github.com/aliasvault
-- Hoofdrepository: https://github.com/aliasvault/aliasvault
-- Officiële docs: https://docs.aliasvault.net
-
----
-
-Wil je bijdragen of issues melden voor deze Home Assistant add-on? Gebruik de issues van deze repository.
+Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie [LICENSE](./LICENSE).
