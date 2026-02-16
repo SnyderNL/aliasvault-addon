@@ -22,15 +22,36 @@ SSL_ENABLED="false"
 CERTFILE="fullchain.pem"
 KEYFILE="privkey.pem"
 
-if [ -f "$OPTIONS_FILE" ]; then
-  compact="$(tr -d '\n\r ' < "$OPTIONS_FILE")"
-  parsed_ssl="$(printf '%s' "$compact" | sed -n 's/.*"ssl":\(true\|false\).*/\1/p')"
-  parsed_cert="$(printf '%s' "$compact" | sed -n 's/.*"certfile":"\([^"]*\)".*/\1/p')"
-  parsed_key="$(printf '%s' "$compact" | sed -n 's/.*"keyfile":"\([^"]*\)".*/\1/p')"
+if [ -f "$OPTIONS_FILE" ] && command -v python3 >/dev/null 2>&1; then
+  readarray -t parsed < <(
+    python3 - "$OPTIONS_FILE" <<'PY'
+import json
+import sys
 
-  [ -n "$parsed_ssl" ] && SSL_ENABLED="$parsed_ssl"
-  [ -n "$parsed_cert" ] && CERTFILE="$parsed_cert"
-  [ -n "$parsed_key" ] && KEYFILE="$parsed_key"
+path = sys.argv[1]
+try:
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+except Exception:
+    data = {}
+
+ssl = data.get("ssl", False)
+cert = data.get("certfile", "fullchain.pem")
+key = data.get("keyfile", "privkey.pem")
+
+print("true" if bool(ssl) else "false")
+print(str(cert) if cert is not None else "fullchain.pem")
+print(str(key) if key is not None else "privkey.pem")
+PY
+  )
+
+  if [ "${#parsed[@]}" -ge 3 ]; then
+    SSL_ENABLED="${parsed[0]}"
+    CERTFILE="${parsed[1]}"
+    KEYFILE="${parsed[2]}"
+  fi
+else
+  echo "[ha-persist] init: python3 not available, using default SSL options"
 fi
 
 if [ "$SSL_ENABLED" = "true" ]; then

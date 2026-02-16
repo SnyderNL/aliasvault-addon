@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "slug": "aliasvault",
   "description": "AliasVault for Home Assistant (community add-on)",
   "arch": ["amd64", "aarch64", "armv7"],
@@ -8,6 +8,8 @@
   "startup": "services",
   "boot": "auto",
   "init": false,
+
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:443]",
 
   "ports": {
     "80/tcp": 3000,
@@ -20,8 +22,6 @@
   },
 
   "map": [
-    "share",
-    "addon_config",
     "ssl"
   ],
 

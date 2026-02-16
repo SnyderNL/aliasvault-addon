@@ -6,8 +6,12 @@ echo "[ha-persist] finish: syncing runtime data back to /data..."
 backup_dir() {
   local runtime="$1"
   local persist="$2"
+
   mkdir -p "$persist"
-  rm -rf "$persist"/*
+
+  # Wipe destination including hidden files/directories.
+  find "$persist" -mindepth 1 -delete
+
   if [ -d "$runtime" ] && [ -n "$(ls -A "$runtime" 2>/dev/null || true)" ]; then
     cp -a "$runtime"/. "$persist"/
   fi

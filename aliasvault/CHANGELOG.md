@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.0.4
+- Add-on metadata hardening:
+  - Bumped version to `0.0.4`
+  - Added `webui` metadata for easier access from Home Assistant UI
+  - Reduced mounted paths to only required map (`ssl`)
+- Persistence reliability improvements:
+  - `ha-persist-finish.sh` now clears destination including hidden files before sync
+- SSL option parsing robustness:
+  - `ha-persist-init.sh` now parses `/data/options.json` using Python JSON parsing (with safe defaults)
+- Added GitHub Actions CI workflow:
+  - Shellcheck for shell scripts
+  - JSON validation for `config.json`
+  - YAML lint for issue templates
+- Dockerfile improvement:
+  - Introduced `UPSTREAM_IMAGE` build arg to support pinning upstream image tag/digest
+
 ## 0.0.3
 - Added Home Assistant `/ssl` certificate support via add-on options:
   - `ssl` (enable/disable)

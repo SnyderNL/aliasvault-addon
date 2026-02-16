@@ -65,6 +65,11 @@ Voor wijziging aan add-on:
 4. Refresh custom repo in Home Assistant
 5. Rebuild/update add-on
 
+## Support scope
+
+- Issues in deze Home Assistant add-on wrapper: gebruik issues in deze repository.
+- Issues in AliasVault core applicatiegedrag: rapporteer upstream bij AliasVault.
+
 ## Troubleshooting
 
 ### 1) `bash\r` / shebang fouten
