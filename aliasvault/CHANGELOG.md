@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.5
+- Fixed Home Assistant Web UI link to always open HTTPS on the mapped TLS port.
+  - Changed `webui` from protocol-placeholder form to explicit `https://[HOST]:[PORT:443]`.
+
 ## 0.0.4
 - Add-on metadata hardening:
   - Bumped version to `0.0.4`
