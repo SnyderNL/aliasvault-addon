@@ -15,6 +15,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 - 🚀 [Installatie](#installatie-home-assistant)
 - 📚 [Add-on documentatie](./aliasvault/DOCS.md)
 - 🐞 [Issues melden](https://github.com/SnyderNL/aliasvault-addon/issues)
+- 🏷️ [Releases](https://github.com/SnyderNL/aliasvault-addon/releases)
 - 🔗 [Officieel AliasVault project](https://github.com/aliasvault/aliasvault)
 
 ## Wat doet deze add-on?
@@ -38,7 +39,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 - HTTP: `http://<home-assistant-ip>:3000`
 - HTTPS: `https://<home-assistant-ip>:3443`
 
-Bij self-signed certificaten kan je browser een waarschuwing tonen.
+`Open Web UI` gebruikt vanaf **v0.0.5** expliciet HTTPS om protocolfouten te voorkomen.
 
 ## Eigen SSL-certificaat gebruiken
 

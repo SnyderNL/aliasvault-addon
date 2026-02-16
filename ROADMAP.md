@@ -2,15 +2,15 @@
 
 ## Now
 - Stabiliteit en feedback verzamelen vanuit Home Assistant gebruikers
-- Documentatie aanscherpen (installatie, SSL, troubleshooting)
-- Supportproces verbeteren met issue templates
+- Install/update/restart testflow verder standaardiseren
+- CI checks bewaken en uitbreiden waar nodig
 
 ## Next
-- Release notes per versie verbeteren
 - Upgrade/migratie notities uitbreiden
 - Testmatrix uitbreiden (NUC/VM/Pi varianten)
+- Upstream image pinning-strategie (tag/digest) vastleggen
 
 ## Later
-- CI checks uitbreiden (lint/validatie)
-- Betere health diagnostics in docs
+- Extra health diagnostics in docs
 - Publicatie in community-overzichten van niet-officiële add-ons
+- Eventueel extra automation rond release proces

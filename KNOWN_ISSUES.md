@@ -2,12 +2,12 @@
 
 Deze lijst bevat bekende beperkingen van de Home Assistant add-on wrapper.
 
-Laatste validatie: **2026-02-16** op **v0.0.4**.
+Laatste validatie: **2026-02-16** op **v0.0.5**.
 
 ## 1) Tijdelijke upstream connection refused bij startup
 
 Tijdens startup kunnen kort `connection refused` / `111` meldingen in logs verschijnen
- totdat alle services volledig gestart zijn.
+totdat alle services volledig gestart zijn.
 
 **Status:** Verwacht gedrag tijdens opstartfase (tijdelijk).
 

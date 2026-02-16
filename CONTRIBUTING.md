@@ -19,6 +19,15 @@ Dit project bevat de **Home Assistant add-on wrapper** voor AliasVault.
 5. Update `aliasvault/CHANGELOG.md` bij user-visible wijzigingen
 6. Open een PR met duidelijke beschrijving
 
+## Releaseproces (kort)
+
+Voor elke versie:
+1. Version bump in `aliasvault/config.json`
+2. Changelog update in `aliasvault/CHANGELOG.md`
+3. Commit + push
+4. Tag aanmaken (bijv. `v0.0.5`) en pushen
+5. **GitHub Release publiceren met release notes** (niet alleen tag)
+
 ## Bug reports
 
 Gebruik bij voorkeur de bug template en voeg toe:

@@ -10,9 +10,14 @@ Belangrijk:
 - Dit is een community add-on-laag
 - AliasVault zelf blijft upstream/software van het AliasVault project
 
+## Huidige status
+
+- Actuele add-on versie: **0.0.5**
+- `Open Web UI` gebruikt expliciet HTTPS (fix in 0.0.5)
+
 ## Architectuur (kort)
 
-- Base image: `ghcr.io/aliasvault/aliasvault:latest`
+- Base image: `ghcr.io/aliasvault/aliasvault:latest` (via `UPSTREAM_IMAGE` build arg overschrijfbaar)
 - Runtime start via upstream init (`/init`)
 - HA-specifieke persistentie wordt afgehandeld via s6 hooks:
   - `/etc/cont-init.d/10-ha-persist`
@@ -27,11 +32,11 @@ Omdat Home Assistant add-ons standaard `/data` persistent maken, synchroniseert 
 - `/secrets`
 - `/certificates`
 
-### SSL certificaten (HA `/ssl` integratie)
+## SSL certificaten (HA `/ssl` integratie)
 
 Deze add-on ondersteunt het gebruik van een **custom TLS certificaat** vanuit Home Assistant.
 
-- In `config.json` is `map: ["ssl", ...]` ingeschakeld.
+- In `config.json` is `map: ["ssl"]` ingeschakeld.
 - De gebruiker configureert via add-on opties:
   - `ssl: true|false`
   - `certfile` (bijv. `fullchain.pem`)
@@ -54,6 +59,7 @@ Deze add-on ondersteunt het gebruik van een **custom TLS certificaat** vanuit Ho
 - `aliasvault/Dockerfile` — Docker build voor de add-on
 - `aliasvault/ha-persist-init.sh` — restore bij startup
 - `aliasvault/ha-persist-finish.sh` — sync bij shutdown
+- `aliasvault/CHANGELOG.md` — versiehistorie
 - `README.md` — gebruikersdocumentatie
 
 ## Lokale ontwikkeling
@@ -61,9 +67,10 @@ Deze add-on ondersteunt het gebruik van een **custom TLS certificaat** vanuit Ho
 Voor wijziging aan add-on:
 1. Pas bestanden aan
 2. Verhoog add-on versie in `config.json`
-3. Commit + push
-4. Refresh custom repo in Home Assistant
-5. Rebuild/update add-on
+3. Update `aliasvault/CHANGELOG.md`
+4. Commit + push
+5. Refresh custom repo in Home Assistant
+6. Rebuild/update add-on
 
 ## Support scope
 
