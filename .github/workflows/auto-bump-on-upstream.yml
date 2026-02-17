@@ -12,7 +12,6 @@ permissions:
 
 jobs:
   bump-addon-version:
-    if: github.actor == 'renovate[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
