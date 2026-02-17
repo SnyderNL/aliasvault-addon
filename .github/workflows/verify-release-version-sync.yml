@@ -1,0 +1,51 @@
+name: Verify Release Version Sync
+
+on:
+  release:
+    types: [published, edited]
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tag/release commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine target tag
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate config version matches tag
+        run: |
+          TAG="${{ steps.meta.outputs.tag }}"
+          TAG_VERSION="${TAG#v}"
+
+          CFG_VERSION=$(python3 - <<'PY'
+import json
+with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
+    print(json.load(f)['version'])
+PY
+)
+
+          echo "Tag version:    $TAG_VERSION"
+          echo "Config version: $CFG_VERSION"
+
+          if [ "$TAG_VERSION" != "$CFG_VERSION" ]; then
+            echo "❌ Version mismatch: tag $TAG does not match aliasvault/config.json ($CFG_VERSION)"
+            exit 1
+          fi
+
+          echo "✅ Version sync OK"
