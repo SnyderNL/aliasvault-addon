@@ -12,7 +12,7 @@ Belangrijk:
 
 ## Huidige status
 
-- Actuele add-on versie: **0.0.5**
+- Actuele add-on versie: **0.0.6**
 - `Open Web UI` gebruikt expliciet HTTPS (fix in 0.0.5)
 
 ## Architectuur (kort)

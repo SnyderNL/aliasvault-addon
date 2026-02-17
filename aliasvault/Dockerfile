@@ -1,5 +1,6 @@
-# Tip: pin UPSTREAM_IMAGE to a fixed tag/digest for reproducible releases.
-ARG UPSTREAM_IMAGE=ghcr.io/aliasvault/aliasvault:latest
+# Renovate will track and update this pinned upstream AliasVault image tag.
+# renovate: datasource=docker depName=ghcr.io/aliasvault/aliasvault
+ARG UPSTREAM_IMAGE=ghcr.io/aliasvault/aliasvault:0.26.4
 FROM ${UPSTREAM_IMAGE}
 
 COPY ha-persist-init.sh /etc/cont-init.d/10-ha-persist

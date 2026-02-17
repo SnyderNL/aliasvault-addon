@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.6
+- Pinned upstream AliasVault image tag in Dockerfile (`ghcr.io/aliasvault/aliasvault:0.26.4`).
+- Added Renovate hint comment so upstream AliasVault version updates can be raised automatically.
+
 ## 0.0.5
 - Fixed Home Assistant Web UI link to always open HTTPS on the mapped TLS port.
   - Changed `webui` from protocol-placeholder form to explicit `https://[HOST]:[PORT:443]`.
