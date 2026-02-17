@@ -1,0 +1,73 @@
+name: Auto bump add-on version on upstream image change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - aliasvault/Dockerfile
+
+permissions:
+  contents: write
+
+jobs:
+  bump-addon-version:
+    if: github.actor == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect upstream image tag change
+        id: detect
+        run: |
+          BEFORE=$(git show HEAD~1:aliasvault/Dockerfile | sed -n 's/^ARG UPSTREAM_IMAGE=ghcr.io\/aliasvault\/aliasvault:\(.*\)$/\1/p' | head -n1)
+          AFTER=$(sed -n 's/^ARG UPSTREAM_IMAGE=ghcr.io\/aliasvault\/aliasvault:\(.*\)$/\1/p' aliasvault/Dockerfile | head -n1)
+          echo "before=$BEFORE" >> "$GITHUB_OUTPUT"
+          echo "after=$AFTER" >> "$GITHUB_OUTPUT"
+          if [ -n "$BEFORE" ] && [ -n "$AFTER" ] && [ "$BEFORE" != "$AFTER" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump add-on patch version + changelog
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          python3 - <<'PY'
+import json
+import re
+from pathlib import Path
+
+config_path = Path('aliasvault/config.json')
+changelog_path = Path('aliasvault/CHANGELOG.md')
+
+config = json.loads(config_path.read_text(encoding='utf-8'))
+old_version = config['version']
+parts = old_version.split('.')
+parts[-1] = str(int(parts[-1]) + 1)
+new_version = '.'.join(parts)
+config['version'] = new_version
+config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
+
+before = "${{ steps.detect.outputs.before }}"
+after = "${{ steps.detect.outputs.after }}"
+entry = f"## {new_version}\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n"
+text = changelog_path.read_text(encoding='utf-8')
+if text.startswith('# Changelog\n\n'):
+    text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]
+else:
+    text = '# Changelog\n\n' + entry + text
+changelog_path.write_text(text, encoding='utf-8')
+PY
+
+      - name: Commit and push changes
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add aliasvault/config.json aliasvault/CHANGELOG.md
+          git commit -m "chore(release): bump add-on version after upstream AliasVault update"
+          git push
