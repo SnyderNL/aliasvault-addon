@@ -1,0 +1,75 @@
+name: Release on Version Bump
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - aliasvault/config.json
+      - aliasvault/CHANGELOG.md
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read version from add-on config
+        id: version
+        run: |
+          VERSION=$(python3 - <<'PY'
+import json
+with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
+    print(json.load(f)['version'])
+PY
+)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check if tag already exists
+        id: exists
+        run: |
+          if git rev-parse "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create tag
+        if: steps.exists.outputs.exists == 'false'
+        run: |
+          git tag "${{ steps.version.outputs.tag }}"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Extract changelog section
+        if: steps.exists.outputs.exists == 'false'
+        id: notes
+        run: |
+          python3 - <<'PY' > /tmp/release-notes.md
+import re
+from pathlib import Path
+
+version = "${{ steps.version.outputs.version }}"
+text = Path('aliasvault/CHANGELOG.md').read_text(encoding='utf-8')
+pattern = rf"##\s+{re.escape(version)}\n(.*?)(?=\n##\s+|\Z)"
+m = re.search(pattern, text, flags=re.S)
+if m:
+    print(m.group(1).strip())
+else:
+    print(f"Release {version}")
+PY
+
+      - name: Publish GitHub release
+        if: steps.exists.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --notes-file /tmp/release-notes.md

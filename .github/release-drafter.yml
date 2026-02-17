@@ -1,0 +1,40 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+template: |
+  ## What’s changed
+
+  $CHANGES
+
+  ## Notes
+  This remains an **unofficial community add-on** for AliasVault.
+  For AliasVault core issues, report upstream:
+  https://github.com/aliasvault/aliasvault
+
+categories:
+  - title: '⬆️ Dependency updates'
+    labels:
+      - dependencies
+  - title: '✨ Features'
+    labels:
+      - enhancement
+  - title: '🐛 Fixes'
+    labels:
+      - bug
+  - title: '📝 Documentation'
+    labels:
+      - documentation
+
+version-resolver:
+  major:
+    labels:
+      - major-update
+  minor:
+    labels:
+      - enhancement
+  patch:
+    labels:
+      - dependencies
+      - bug
+      - documentation
+  default: patch
