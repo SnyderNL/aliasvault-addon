@@ -49,10 +49,11 @@ major, minor, patch = map(int, old_version.split('.'))
 
 # Version policy:
 # - normal upstream auto-bump => patch +1
-# - one-time graduation path from 0.0.x:
-#   after 0.0.9, next auto-bump becomes 0.1.0
-if major == 0 and minor == 0 and patch >= 9:
-    major, minor, patch = 0, 1, 0
+# - whenever patch reaches 9, next bump rolls to next minor at .0
+#   examples: 0.0.9 -> 0.1.0, 0.1.9 -> 0.2.0
+if patch >= 9:
+    minor += 1
+    patch = 0
 else:
     patch += 1
 
