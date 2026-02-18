@@ -45,9 +45,18 @@ changelog_path = Path('aliasvault/CHANGELOG.md')
 
 config = json.loads(config_path.read_text(encoding='utf-8'))
 old_version = config['version']
-parts = old_version.split('.')
-parts[-1] = str(int(parts[-1]) + 1)
-new_version = '.'.join(parts)
+major, minor, patch = map(int, old_version.split('.'))
+
+# Version policy:
+# - normal upstream auto-bump => patch +1
+# - one-time graduation path from 0.0.x:
+#   after 0.0.9, next auto-bump becomes 0.1.0
+if major == 0 and minor == 0 and patch >= 9:
+    major, minor, patch = 0, 1, 0
+else:
+    patch += 1
+
+new_version = f"{major}.{minor}.{patch}"
 config['version'] = new_version
 config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
 
