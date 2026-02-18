@@ -24,11 +24,11 @@ jobs:
         id: version
         run: |
           VERSION=$(python3 - <<'PY'
-import json
-with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
-    print(json.load(f)['version'])
-PY
-)
+          import json
+          with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
+              print(json.load(f)['version'])
+          PY
+          )
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
 
@@ -52,27 +52,27 @@ PY
         id: notes
         run: |
           python3 - <<'PY' > /tmp/release-notes.md
-import re
-from pathlib import Path
+          import re
+          from pathlib import Path
 
-version = "${{ steps.version.outputs.version }}"
-text = Path('aliasvault/CHANGELOG.md').read_text(encoding='utf-8')
-pattern = rf"##\s+{re.escape(version)}\n(.*?)(?=\n##\s+|\Z)"
-m = re.search(pattern, text, flags=re.S)
-if m:
-    notes = m.group(1).strip()
-else:
-    notes = f"Release {version}"
+          version = "${{ steps.version.outputs.version }}"
+          text = Path('aliasvault/CHANGELOG.md').read_text(encoding='utf-8')
+          pattern = rf"##\s+{re.escape(version)}\n(.*?)(?=\n##\s+|\Z)"
+          m = re.search(pattern, text, flags=re.S)
+          if m:
+              notes = m.group(1).strip()
+          else:
+              notes = f"Release {version}"
 
-maintenance_note = (
-    "\n\n---\n"
-    "Internal maintenance note: this release may include small CI/automation "
-    "or dependency housekeeping. If no user-facing change is listed above, "
-    "add-on behavior is unchanged."
-)
+          maintenance_note = (
+              "\n\n---\n"
+              "Internal maintenance note: this release may include small CI/automation "
+              "or dependency housekeeping. If no user-facing change is listed above, "
+              "add-on behavior is unchanged."
+          )
 
-print(notes + maintenance_note)
-PY
+          print(notes + maintenance_note)
+          PY
 
       - name: Publish GitHub release
         if: steps.exists.outputs.exists == 'false'

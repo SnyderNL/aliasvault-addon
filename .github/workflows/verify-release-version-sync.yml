@@ -34,11 +34,11 @@ jobs:
           TAG_VERSION="${TAG#v}"
 
           CFG_VERSION=$(python3 - <<'PY'
-import json
-with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
-    print(json.load(f)['version'])
-PY
-)
+          import json
+          with open('aliasvault/config.json', 'r', encoding='utf-8') as f:
+              print(json.load(f)['version'])
+          PY
+          )
 
           echo "Tag version:    $TAG_VERSION"
           echo "Config version: $CFG_VERSION"

@@ -36,41 +36,40 @@ jobs:
         if: steps.detect.outputs.changed == 'true'
         run: |
           python3 - <<'PY'
-import json
-import re
-from pathlib import Path
+          import json
+          from pathlib import Path
 
-config_path = Path('aliasvault/config.json')
-changelog_path = Path('aliasvault/CHANGELOG.md')
+          config_path = Path('aliasvault/config.json')
+          changelog_path = Path('aliasvault/CHANGELOG.md')
 
-config = json.loads(config_path.read_text(encoding='utf-8'))
-old_version = config['version']
-major, minor, patch = map(int, old_version.split('.'))
+          config = json.loads(config_path.read_text(encoding='utf-8'))
+          old_version = config['version']
+          major, minor, patch = map(int, old_version.split('.'))
 
-# Version policy:
-# - normal upstream auto-bump => patch +1
-# - whenever patch reaches 9, next bump rolls to next minor at .0
-#   examples: 0.0.9 -> 0.1.0, 0.1.9 -> 0.2.0
-if patch >= 9:
-    minor += 1
-    patch = 0
-else:
-    patch += 1
+          # Version policy:
+          # - normal upstream auto-bump => patch +1
+          # - whenever patch reaches 9, next bump rolls to next minor at .0
+          #   examples: 0.0.9 -> 0.1.0, 0.1.9 -> 0.2.0
+          if patch >= 9:
+              minor += 1
+              patch = 0
+          else:
+              patch += 1
 
-new_version = f"{major}.{minor}.{patch}"
-config['version'] = new_version
-config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
+          new_version = f"{major}.{minor}.{patch}"
+          config['version'] = new_version
+          config_path.write_text(json.dumps(config, indent=2) + '\n', encoding='utf-8')
 
-before = "${{ steps.detect.outputs.before }}"
-after = "${{ steps.detect.outputs.after }}"
-entry = f"## {new_version}\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n"
-text = changelog_path.read_text(encoding='utf-8')
-if text.startswith('# Changelog\n\n'):
-    text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]
-else:
-    text = '# Changelog\n\n' + entry + text
-changelog_path.write_text(text, encoding='utf-8')
-PY
+          before = "${{ steps.detect.outputs.before }}"
+          after = "${{ steps.detect.outputs.after }}"
+          entry = f"## {new_version}\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n"
+          text = changelog_path.read_text(encoding='utf-8')
+          if text.startswith('# Changelog\n\n'):
+              text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]
+          else:
+              text = '# Changelog\n\n' + entry + text
+          changelog_path.write_text(text, encoding='utf-8')
+          PY
 
       - name: Commit and push changes
         if: steps.detect.outputs.changed == 'true'
