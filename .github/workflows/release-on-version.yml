@@ -60,9 +60,18 @@ text = Path('aliasvault/CHANGELOG.md').read_text(encoding='utf-8')
 pattern = rf"##\s+{re.escape(version)}\n(.*?)(?=\n##\s+|\Z)"
 m = re.search(pattern, text, flags=re.S)
 if m:
-    print(m.group(1).strip())
+    notes = m.group(1).strip()
 else:
-    print(f"Release {version}")
+    notes = f"Release {version}"
+
+maintenance_note = (
+    "\n\n---\n"
+    "Internal maintenance note: this release may include small CI/automation "
+    "or dependency housekeeping. If no user-facing change is listed above, "
+    "add-on behavior is unchanged."
+)
+
+print(notes + maintenance_note)
 PY
 
       - name: Publish GitHub release

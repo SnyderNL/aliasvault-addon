@@ -6,6 +6,10 @@ template: |
 
   $CHANGES
 
+  ## Internal maintenance (short)
+  This release can include small CI/automation or dependency housekeeping.
+  If there are no user-facing changes listed above, add-on behavior is unchanged.
+
   ## Notes
   This remains an **unofficial community add-on** for AliasVault.
   For AliasVault core issues, report upstream:
