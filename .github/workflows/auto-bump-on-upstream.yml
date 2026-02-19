@@ -76,6 +76,9 @@ jobs:
         if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
+          add-paths: |
+            aliasvault/config.json
+            aliasvault/CHANGELOG.md
           commit-message: "chore(release): bump add-on version after upstream AliasVault update"
           title: "chore(release): bump add-on version after upstream AliasVault update"
           body: |
