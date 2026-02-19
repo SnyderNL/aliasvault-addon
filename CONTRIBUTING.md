@@ -26,6 +26,12 @@ Voor elke versie:
 2. Changelog update in `aliasvault/CHANGELOG.md`
 3. Commit + push naar `main`
 
+### Changelog policy (Home Assistant overzicht)
+
+- `aliasvault/CHANGELOG.md` bevat alleen de **laatste 3 versies**.
+- Oudere entries verplaatsen naar `aliasvault/CHANGELOG_ARCHIVE.md`.
+- CI controleert dit en faalt bij meer dan 3 versie-secties.
+
 Daarna doet automation de rest:
 - workflow maakt tag `vX.Y.Z` als die nog niet bestaat
 - workflow publiceert GitHub Release met notes uit de changelog

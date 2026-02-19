@@ -29,6 +29,16 @@ jobs:
         run: |
           jq . aliasvault/config.json >/dev/null
 
+      - name: Enforce short HA changelog (max 3 versions)
+        run: |
+          COUNT=$(grep -c '^## ' aliasvault/CHANGELOG.md)
+          echo "Found $COUNT changelog version sections"
+          if [ "$COUNT" -gt 3 ]; then
+            echo "CHANGELOG.md may contain at most 3 version sections for Home Assistant readability."
+            echo "Move older entries to aliasvault/CHANGELOG_ARCHIVE.md"
+            exit 1
+          fi
+
       - name: Lint issue templates
         run: |
           yamllint .github/ISSUE_TEMPLATE/*.yml
