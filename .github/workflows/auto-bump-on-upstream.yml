@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   bump-addon-version:
@@ -71,11 +72,17 @@ jobs:
           changelog_path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Commit and push changes
+      - name: Create pull request with version bump
         if: steps.detect.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add aliasvault/config.json aliasvault/CHANGELOG.md
-          git commit -m "chore(release): bump add-on version after upstream AliasVault update"
-          git push
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(release): bump add-on version after upstream AliasVault update"
+          title: "chore(release): bump add-on version after upstream AliasVault update"
+          body: |
+            Automated add-on version/changelog bump after upstream AliasVault image update.
+
+            - Upstream image before: `${{ steps.detect.outputs.before }}`
+            - Upstream image after: `${{ steps.detect.outputs.after }}`
+          branch: "automation/upstream-version-bump"
+          delete-branch: true
+          labels: dependencies
