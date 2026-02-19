@@ -35,8 +35,9 @@ Voor elke versie:
 Daarna doet automation de rest:
 - workflow maakt tag `vX.Y.Z` als die nog niet bestaat
 - workflow publiceert GitHub Release met notes uit de changelog
-- Release Drafter houdt een draft-release bij op basis van merged PR's
 - aparte workflow verifieert dat release/tag versie exact matcht met `aliasvault/config.json`
+
+> Let op: automatische Release Drafter drafts staan uit, zodat de draft-taglogica niet afwijkt van het afgesproken versieschema.
 
 ## Bug reports
 
