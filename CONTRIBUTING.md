@@ -37,7 +37,7 @@ Daarna doet automation de rest:
 - workflow publiceert GitHub Release met notes uit de changelog
 - aparte workflow verifieert dat release/tag versie exact matcht met `aliasvault/config.json`
 
-> Release Drafter is verwijderd; releases lopen volledig via config.json + changelog + release-on-version workflow.
+> Let op: Release Drafter maakt automatisch release-notes drafts. De daadwerkelijke versie/tag blijft leidend via `aliasvault/config.json` + release workflow.
 
 ## Bug reports
 
