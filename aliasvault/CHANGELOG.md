@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.9
+- Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.6`.
+- Internal CI/automation maintenance only; no direct user-facing add-on behavior changes.
+
 ## 0.0.8
 - Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.5`.
 - Internal CI/automation maintenance only; no direct user-facing add-on behavior changes.
