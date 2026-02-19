@@ -64,14 +64,7 @@ jobs:
           else:
               notes = f"Release {version}"
 
-          maintenance_note = (
-              "\n\n---\n"
-              "Internal maintenance note: this release may include small CI/automation "
-              "or dependency housekeeping. If no user-facing change is listed above, "
-              "add-on behavior is unchanged."
-          )
-
-          print(notes + maintenance_note)
+          print(notes)
           PY
 
       - name: Publish GitHub release
