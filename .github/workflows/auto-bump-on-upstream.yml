@@ -70,7 +70,58 @@ jobs:
               text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]
           else:
               text = '# Changelog\n\n' + entry + text
+
+          # Keep Home Assistant changelog compact: only latest 3 version sections.
+          # Move older entries to CHANGELOG_ARCHIVE.md.
+          header = '# Changelog\n\n'
+          body = text[len(header):] if text.startswith(header) else text
+
+          sections = []
+          current = []
+          for line in body.splitlines():
+              if line.startswith('## '):
+                  if current:
+                      sections.append('\n'.join(current).strip())
+                      current = []
+              current.append(line)
+          if current:
+              sections.append('\n'.join(current).strip())
+
+          keep = [s for s in sections[:3] if s]
+          overflow = [s for s in sections[3:] if s]
+
+          text = header + '\n\n'.join(keep).strip() + '\n\n' + \
+              'Oudere wijzigingen: zie `aliasvault/CHANGELOG_ARCHIVE.md` en GitHub Releases.\n'
           changelog_path.write_text(text, encoding='utf-8')
+
+          if overflow:
+              archive_path = Path('aliasvault/CHANGELOG_ARCHIVE.md')
+              archive_header = '# Changelog (archief)\n\nHistorische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.\n\n'
+              existing_archive = archive_path.read_text(encoding='utf-8') if archive_path.exists() else archive_header
+              if not existing_archive.startswith('# Changelog (archief)'):
+                  existing_archive = archive_header + existing_archive
+
+              archive_body = existing_archive.split('\n\n', 2)[-1] if 'Historische wijzigingen' in existing_archive else existing_archive
+              archive_sections = []
+              cur = []
+              for line in archive_body.splitlines():
+                  if line.startswith('## '):
+                      if cur:
+                          archive_sections.append('\n'.join(cur).strip())
+                          cur = []
+                  cur.append(line)
+              if cur:
+                  archive_sections.append('\n'.join(cur).strip())
+
+              merged = []
+              seen = set()
+              for s in overflow + archive_sections:
+                  if s and s not in seen:
+                      seen.add(s)
+                      merged.append(s)
+
+              archive_text = archive_header + '\n\n'.join(merged).strip() + '\n'
+              archive_path.write_text(archive_text, encoding='utf-8')
           PY
 
       - name: Create pull request with version bump
@@ -80,6 +131,7 @@ jobs:
           add-paths: |
             aliasvault/config.json
             aliasvault/CHANGELOG.md
+            aliasvault/CHANGELOG_ARCHIVE.md
           commit-message: "chore(release): bump add-on version after upstream AliasVault update"
           title: "chore(release): bump add-on version after upstream AliasVault update"
           body: |
