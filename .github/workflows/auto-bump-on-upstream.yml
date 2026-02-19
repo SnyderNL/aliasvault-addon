@@ -74,7 +74,7 @@ jobs:
 
       - name: Create pull request with version bump
         if: steps.detect.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore(release): bump add-on version after upstream AliasVault update"
           title: "chore(release): bump add-on version after upstream AliasVault update"
