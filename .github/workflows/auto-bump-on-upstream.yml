@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - aliasvault/Dockerfile
+  workflow_dispatch:
 
 permissions:
   contents: write
