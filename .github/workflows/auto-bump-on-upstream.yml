@@ -64,7 +64,7 @@ jobs:
 
           before = "${{ steps.detect.outputs.before }}"
           after = "${{ steps.detect.outputs.after }}"
-          entry = f"## {new_version}\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n"
+          entry = f"## {new_version}\n### What’s changed\n\n#### ⬆️ Dependency updates\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n### Notes\nThis remains an **unofficial community add-on** for AliasVault.\nFor AliasVault core issues, report upstream:\nhttps://github.com/aliasvault/aliasvault\n\n"
           text = changelog_path.read_text(encoding='utf-8')
           if text.startswith('# Changelog\n\n'):
               text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]

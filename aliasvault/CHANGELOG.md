@@ -1,17 +1,53 @@
 # Changelog
 
 ## 0.1.0
-- 🎯 Releasekwaliteit: documentatie en presentatie verbeterd voor Home Assistant-gebruikers.
-- 🖼️ README verbeterd met screenshots en badges; add-on detailpagina (`aliasvault/README.md`) toegevoegd voor rijkere weergave in Home Assistant.
-- 🔄 Release-automatisering gehard: versiebump-flow gestabiliseerd, release/tag-sync checks en verbeterde changelog-afhandeling.
-- 🧩 Compatibiliteit aangescherpt: add-on metadata is nu gericht op `amd64` en `aarch64`.
+### What’s changed
+
+#### 🧩 Compatibility
+- Updated add-on architecture metadata to target `amd64` and `aarch64`.
+
+#### 🖼️ Documentation & presentation improvements
+- README improved with screenshots and clearer project badges.
+- Added dedicated add-on detail page: `aliasvault/README.md` for richer Home Assistant rendering.
+- Developer docs (`aliasvault/DOCS.md`) refreshed and aligned with current release flow.
+
+#### 🛠️ CI / release flow improvements
+- Auto-bump/version flow stabilized and validated in practice.
+- Release/tag sync checks hardened.
+- Changelog handling improved with compact Home Assistant view + archive policy.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
 
 ## 0.0.9
+### What’s changed
+
+#### ⬆️ Dependency updates
 - Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.6`.
-- Internal CI/automation maintenance only; no direct user-facing add-on behavior changes.
+- Updated `peter-evans/create-pull-request` action to v8.
+
+#### 🛠️ CI / release flow improvements
+- Auto-bump flow now creates a PR for version/changelog updates instead of direct push to `main`.
+- Auto-bump PR scope was limited to release-related files.
+- Added manual workflow trigger (`workflow_dispatch`) for easier validation.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
 
 ## 0.0.8
+### What’s changed
+
+#### ⬆️ Dependency updates
 - Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.5`.
-- Internal CI/automation maintenance only; no direct user-facing add-on behavior changes.
+- Workflow dependency refresh (`actions/checkout` to v6).
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
 
 Oudere wijzigingen: zie `aliasvault/CHANGELOG_ARCHIVE.md` en GitHub Releases.
