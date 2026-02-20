@@ -1,6 +1,6 @@
 # Home Assistant Add-on: AliasVault
 
-[![Version](https://img.shields.io/github/release/SnyderNL/aliasvault-addon.svg?label=version)](https://github.com/SnyderNL/aliasvault-addon/releases)
+[![Version](https://img.shields.io/github/v/release/SnyderNL/aliasvault-addon?label=version)](https://github.com/SnyderNL/aliasvault-addon/releases)
 ![Project stage](https://img.shields.io/badge/project%20stage-community-yellow.svg)
 ![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-orange.svg)
