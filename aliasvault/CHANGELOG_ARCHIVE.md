@@ -2,6 +2,9 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.0.7
+- Synced add-on version to `0.0.7` so Home Assistant store version matches GitHub release/tag.
+
 ## 0.0.6
 - Pinned upstream AliasVault image tag in Dockerfile (`ghcr.io/aliasvault/aliasvault:0.26.4`).
 - Added Renovate hint comment so upstream AliasVault version updates can be raised automatically.

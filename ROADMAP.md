@@ -1,16 +1,18 @@
 # Roadmap
 
-## Now
-- Stabiliteit en feedback verzamelen vanuit Home Assistant gebruikers
-- Install/update/restart testflow verder standaardiseren
-- CI checks bewaken en uitbreiden waar nodig
+## Done (v0.1.0)
+- Releaseflow gestabiliseerd (version/tag sync checks)
+- Auto-bump via PR-flow i.p.v. directe push naar `main`
+- Changelog compact voor Home Assistant (laatste 3) + archief
+- Add-on README toegevoegd voor rijkere HA-weergave
+- README badges/screenshots verbeterd
 
 ## Next
-- Upgrade/migratie notities uitbreiden
-- Testmatrix uitbreiden (NUC/VM/Pi varianten)
-- Upstream image pinning-strategie (tag/digest) vastleggen
+- Config-opties uitbreiden (bijv. `log_level`, request limieten) indien upstream compatibel
+- Testmatrix verbeteren (NUC/VM/HAOS varianten)
+- Troubleshooting uitbreiden met praktische diagnoseflows
 
 ## Later
-- Extra health diagnostics in docs
-- Publicatie in community-overzichten van niet-officiële add-ons
-- Eventueel extra automation rond release proces
+- Extra health diagnostics
+- Verdere release-UX polish
+- Eventuele publicatie in bredere HA community-overzichten

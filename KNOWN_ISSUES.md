@@ -1,37 +1,25 @@
 # Known Issues
 
-Deze lijst bevat bekende beperkingen van de Home Assistant add-on wrapper.
+Laatste validatie: **2026-02-20** op **v0.1.0**.
 
-Laatste validatie: **2026-02-16** op **v0.0.5**.
+## 1) Tijdelijke `connection refused` tijdens startup
 
-## 1) Tijdelijke upstream connection refused bij startup
+Korte 111/connection refused meldingen kunnen voorkomen tot alle services volledig gestart zijn.
 
-Tijdens startup kunnen kort `connection refused` / `111` meldingen in logs verschijnen
-totdat alle services volledig gestart zijn.
+**Status:** verwacht tijdens opstart, tijdelijk.
 
-**Status:** Verwacht gedrag tijdens opstartfase (tijdelijk).
+## 2) Browserwaarschuwing bij self-signed certificaat
 
----
+Zonder eigen certificaat kan de browser een TLS-waarschuwing tonen.
 
-## 2) Browserwaarschuwing bij self-signed cert
+**Workaround:** gebruik `/ssl` met `ssl/certfile/keyfile` opties.
 
-Als je geen eigen certificaat hebt ingesteld, kan de browser een TLS-waarschuwing tonen.
+## 3) Optiewijzigingen vragen restart
 
-**Workaround:** Gebruik een eigen certificaat via `/ssl` + `ssl/certfile/keyfile` opties.
+Na wijziging van add-on opties is meestal een herstart nodig.
 
----
+## 4) Support scope
 
-## 3) Config wijziging soms pas actief na restart
-
-Na aanpassen van add-on opties is een restart van de add-on nodig om alles consistent te laden.
-
-**Workaround:** Handmatig add-on herstarten na config wijzigingen.
-
----
-
-## 4) Scope van support
-
-Deze repository beheert alleen de HA add-on laag.
-Functionele bugs in AliasVault zelf horen upstream.
-
-- Upstream: https://github.com/aliasvault/aliasvault
+Deze repo beheert alleen de HA add-on wrapper.
+Core AliasVault issues horen upstream:
+https://github.com/aliasvault/aliasvault
