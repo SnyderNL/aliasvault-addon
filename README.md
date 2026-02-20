@@ -25,6 +25,42 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 - Gebruikt het officiële AliasVault container-image als basis
 - Bevat add-on-specifieke aanpassingen voor Home Assistant runtime
 
+## Ondersteunde architecturen
+
+- `amd64`
+- `aarch64`
+
+Niet ondersteund: `armv7`.
+
+## Screenshots (AliasVault)
+
+<table>
+  <tr>
+    <th align="center">Web app</th>
+    <th align="center">Browser extension</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/fa5bf64a-704d-4f09-b4e0-0310ab662204" alt="AliasVault web app" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/b5218609-217b-4c8d-8d5d-8c71e19bf057" alt="AliasVault browser extension" />
+    </td>
+  </tr>
+  <tr>
+    <th align="center">Mobiele app</th>
+    <th align="center">Features</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/5d09ad78-d145-48a1-b8da-c5a1dc708886" alt="AliasVault mobile app" />
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/34fe650d-f08d-4c92-92e0-4e750b7a662a" alt="AliasVault features" />
+    </td>
+  </tr>
+</table>
+
 ## Installatie (Home Assistant)
 
 1. Ga naar **Settings → Add-ons → Add-on Store**
