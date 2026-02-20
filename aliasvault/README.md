@@ -11,11 +11,8 @@ AliasVault add-on voor Home Assistant (community maintained).
 
 Deze add-on draait het officiële AliasVault image binnen Home Assistant, met add-on-specifieke persistentie en SSL-integratie.
 
-Toegang is primair bedoeld via HTTPS. HTTP kan technisch werken, maar valt buiten officiële AliasVault-support.
 
 - Ondersteund: `amd64`, `aarch64`
-
-> Dit is een **onofficiële community add-on**. Voor AliasVault core issues: https://github.com/aliasvault/aliasvault
 
 ## Screenshots
 
@@ -68,3 +65,7 @@ keyfile: privkey.pem
 - Changelog: https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/CHANGELOG.md
 - Issues: https://github.com/SnyderNL/aliasvault-addon/issues
 - Upstream AliasVault: https://github.com/aliasvault/aliasvault
+## Support
+
+Dit is een **onofficiële community add-on**. Voor AliasVault core issues: https://github.com/aliasvault/aliasvault
+

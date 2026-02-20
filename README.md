@@ -22,7 +22,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 ## Wat doet deze add-on?
 
 - Draait AliasVault binnen Home Assistant
-- Toegang primair via HTTPS (aanbevolen). HTTP kan technisch werken, maar valt buiten officiële AliasVault-support.
+- Toegang via de add-on webinterface
 - Gebruikt het officiële AliasVault container-image als basis
 - Bevat add-on-specifieke aanpassingen voor Home Assistant runtime
 
