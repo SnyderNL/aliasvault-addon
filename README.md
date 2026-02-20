@@ -30,8 +30,6 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 - `amd64`
 - `aarch64`
 
-Niet ondersteund: `armv7`.
-
 ## Screenshots (AliasVault)
 
 <table>
