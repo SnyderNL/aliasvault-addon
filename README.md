@@ -4,9 +4,10 @@
 > Dit project is geen officiële AliasVault distributie.  
 > Officiële projectlinks: [AliasVault GitHub](https://github.com/aliasvault/aliasvault) · [AliasVault docs](https://docs.aliasvault.net)
 
-[![Project stage](https://img.shields.io/badge/project%20stage-experimental-yellow.svg)](#)
-[![Latest release](https://img.shields.io/github/v/release/SnyderNL/aliasvault-addon)](https://github.com/SnyderNL/aliasvault-addon/releases)
-[![License](https://img.shields.io/github/license/SnyderNL/aliasvault-addon)](./LICENSE)
+[![Version](https://img.shields.io/github/v/release/SnyderNL/aliasvault-addon?label=version)](https://github.com/SnyderNL/aliasvault-addon/releases)
+![Project stage](https://img.shields.io/badge/project%20stage-community-yellow.svg)
+![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
+![License](https://img.shields.io/badge/license-AGPL--3.0-orange.svg)
 
 Home Assistant add-on om **AliasVault** te draaien als self-hosted password & alias manager.
 
