@@ -2,6 +2,13 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.0.9
+- Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.6`.
+- Updated `peter-evans/create-pull-request` action to v8.
+- Auto-bump flow now creates a PR for version/changelog updates instead of direct push to `main`.
+- Auto-bump PR scope was limited to release-related files.
+- Added manual workflow trigger (`workflow_dispatch`) for easier validation.
+
 ## 0.0.8
 - Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.5`.
 - Workflow dependency refresh (`actions/checkout` to v6).

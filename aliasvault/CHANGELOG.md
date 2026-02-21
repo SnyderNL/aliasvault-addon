@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.2
+### What’s changed
+
+#### 🛠️ Runtime fix for Home Assistant persistence + SSL import
+- Fixed add-on startup integration to hook into AliasVault's actual s6 init flow.
+- Replaced unused `/etc/cont-init.d` approach with an init wrapper that runs before upstream init.
+- Wrapper now:
+  - links runtime paths to persistent `/data` (`/database`, `/logs`, `/secrets`, `/certificates`)
+  - imports HA `/ssl` certificate/key when `ssl=true`
+  - writes `.hostname_marker` so upstream does not overwrite custom certs with self-signed `localhost` certs.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
 ## 0.1.1
 ### What’s changed
 
@@ -27,23 +43,6 @@ https://github.com/aliasvault/aliasvault
 - Auto-bump/version flow stabilized and validated in practice.
 - Release/tag sync checks hardened.
 - Changelog handling improved with compact Home Assistant view + archive policy.
-
-### Notes
-This remains an **unofficial community add-on** for AliasVault.
-For AliasVault core issues, report upstream:
-https://github.com/aliasvault/aliasvault
-
-## 0.0.9
-### What’s changed
-
-#### ⬆️ Dependency updates
-- Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.6`.
-- Updated `peter-evans/create-pull-request` action to v8.
-
-#### 🛠️ CI / release flow improvements
-- Auto-bump flow now creates a PR for version/changelog updates instead of direct push to `main`.
-- Auto-bump PR scope was limited to release-related files.
-- Added manual workflow trigger (`workflow_dispatch`) for easier validation.
 
 ### Notes
 This remains an **unofficial community add-on** for AliasVault.
