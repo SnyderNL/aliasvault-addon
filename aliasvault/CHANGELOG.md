@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.3
+### What’s changed
+
+#### 🩹 Startup hotfix for mountpoint replacement
+- Fixed init wrapper crash on some systems where `/database` is a busy mountpoint and cannot be removed/replaced with a symlink.
+- Wrapper now detects mountpoints, skips symlink replacement safely, and seeds runtime data from `/data` when appropriate.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
 ## 0.1.2
 ### What’s changed
 
@@ -22,27 +34,6 @@ https://github.com/aliasvault/aliasvault
 #### 🛡️ SSL fix (Home Assistant /ssl certs)
 - Fixed a startup edge case where AliasVault could regenerate and serve a self-signed `localhost` certificate even when custom HA `/ssl` certs were configured.
 - Add-on now writes `/certificates/ssl/.hostname_marker` when importing `/ssl` cert/key, preventing unintended upstream cert regeneration.
-
-### Notes
-This remains an **unofficial community add-on** for AliasVault.
-For AliasVault core issues, report upstream:
-https://github.com/aliasvault/aliasvault
-
-## 0.1.0
-### What’s changed
-
-#### 🧩 Compatibility
-- Updated add-on architecture metadata to target `amd64` and `aarch64`.
-
-#### 🖼️ Documentation & presentation improvements
-- README improved with screenshots and clearer project badges.
-- Added dedicated add-on detail page: `aliasvault/README.md` for richer Home Assistant rendering.
-- Developer docs (`aliasvault/DOCS.md`) refreshed and aligned with current release flow.
-
-#### 🛠️ CI / release flow improvements
-- Auto-bump/version flow stabilized and validated in practice.
-- Release/tag sync checks hardened.
-- Changelog handling improved with compact Home Assistant view + archive policy.
 
 ### Notes
 This remains an **unofficial community add-on** for AliasVault.

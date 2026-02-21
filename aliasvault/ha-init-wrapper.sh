@@ -13,13 +13,23 @@ migrate_and_link() {
     return 0
   fi
 
+  # Some upstream paths can be mounted/busy and cannot be replaced with a symlink.
+  # In that case, keep runtime path as-is and just seed data one-way from /data when useful.
+  if [ -d "$link" ] && command -v mountpoint >/dev/null 2>&1 && mountpoint -q "$link"; then
+    echo "[ha-persist] init: $link is a mountpoint; skipping symlink replacement"
+    if [ -z "$(ls -A "$link" 2>/dev/null || true)" ] && [ -n "$(ls -A "$target" 2>/dev/null || true)" ]; then
+      cp -a "$target"/. "$link"/
+    fi
+    return 0
+  fi
+
   if [ -d "$link" ]; then
     if [ -z "$(ls -A "$target" 2>/dev/null || true)" ] && [ -n "$(ls -A "$link" 2>/dev/null || true)" ]; then
       cp -a "$link"/. "$target"/
     fi
-    rm -rf "$link"
+    rm -rf "$link" || true
   elif [ -e "$link" ]; then
-    rm -rf "$link"
+    rm -rf "$link" || true
   fi
 
   ln -s "$target" "$link"
