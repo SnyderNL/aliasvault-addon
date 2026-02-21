@@ -92,6 +92,17 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
+## Troubleshooting (SSL)
+
+- Zie je nog een `localhost` self-signed certificaat op HTTPS? Controleer dat add-on opties exact zo staan:
+  - `ssl: true`
+  - `certfile: fullchain.pem`
+  - `keyfile: privkey.pem`
+- Check na herstart de add-on logs op:
+  - `custom SSL cert loaded from /ssl (...)`
+  - en **niet** `SSL enabled but cert/key not found in /ssl`
+- Na update van de add-on altijd de Store verversen + add-on herstarten, zodat de nieuwe image/config actief is.
+
 ## Known Issues
 
 Zie: [KNOWN_ISSUES.md](./KNOWN_ISSUES.md)

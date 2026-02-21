@@ -59,6 +59,13 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
+## Troubleshooting (SSL)
+
+- HTTPS toont nog `localhost` certificaat? Controleer dat `ssl: true` is ingesteld en dat `certfile`/`keyfile` verwijzen naar bestaande bestanden in HA `/ssl`.
+- Controleer de add-on logs na herstart op:
+  - `custom SSL cert loaded from /ssl (...)`
+- Zie je `SSL enabled but cert/key not found in /ssl`, dan kloppen bestandsnaam/pad in configuratie niet.
+
 ## Links
 
 - Add-on documentatie: https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md
