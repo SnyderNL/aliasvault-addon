@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.1
+### What’s changed
+
+#### 🛡️ SSL fix (Home Assistant /ssl certs)
+- Fixed a startup edge case where AliasVault could regenerate and serve a self-signed `localhost` certificate even when custom HA `/ssl` certs were configured.
+- Add-on now writes `/certificates/ssl/.hostname_marker` when importing `/ssl` cert/key, preventing unintended upstream cert regeneration.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
 ## 0.1.0
 ### What’s changed
 
@@ -32,18 +44,6 @@ https://github.com/aliasvault/aliasvault
 - Auto-bump flow now creates a PR for version/changelog updates instead of direct push to `main`.
 - Auto-bump PR scope was limited to release-related files.
 - Added manual workflow trigger (`workflow_dispatch`) for easier validation.
-
-### Notes
-This remains an **unofficial community add-on** for AliasVault.
-For AliasVault core issues, report upstream:
-https://github.com/aliasvault/aliasvault
-
-## 0.0.8
-### What’s changed
-
-#### ⬆️ Dependency updates
-- Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.5`.
-- Workflow dependency refresh (`actions/checkout` to v6).
 
 ### Notes
 This remains an **unofficial community add-on** for AliasVault.

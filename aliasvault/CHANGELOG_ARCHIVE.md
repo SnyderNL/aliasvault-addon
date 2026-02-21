@@ -2,6 +2,10 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.0.8
+- Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.5`.
+- Workflow dependency refresh (`actions/checkout` to v6).
+
 ## 0.0.7
 - Synced add-on version to `0.0.7` so Home Assistant store version matches GitHub release/tag.
 
