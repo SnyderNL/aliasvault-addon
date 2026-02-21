@@ -1,20 +1,37 @@
-# Home Assistant Add-on: AliasVault
+# AliasVault Home Assistant Add-on
+
+> ⚠️ **Unofficial community add-on**  
+> Dit project is geen officiële AliasVault distributie.  
+> Officiële projectlinks: [AliasVault GitHub](https://github.com/aliasvault/aliasvault) · [AliasVault docs](https://docs.aliasvault.net)
 
 [![Version](https://img.shields.io/github/v/release/SnyderNL/aliasvault-addon?label=version)](https://github.com/SnyderNL/aliasvault-addon/releases)
 ![Project stage](https://img.shields.io/badge/project%20stage-community-yellow.svg)
 ![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-orange.svg)
 
-AliasVault add-on voor Home Assistant (community maintained).
+Home Assistant add-on om **AliasVault** te draaien als self-hosted password & alias manager.
 
-## Over deze add-on
+## Quick links
 
-Deze add-on draait het officiële AliasVault image binnen Home Assistant, met add-on-specifieke persistentie en SSL-integratie.
+- 🚀 [Installatie](#installatie-home-assistant)
+- 📚 [Add-on documentatie](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md)
+- 🐞 [Issues melden](https://github.com/SnyderNL/aliasvault-addon/issues)
+- 🏷️ [Releases](https://github.com/SnyderNL/aliasvault-addon/releases)
+- 🔗 [Officieel AliasVault project](https://github.com/aliasvault/aliasvault)
 
+## Wat doet deze add-on?
 
-- Ondersteund: `amd64`, `aarch64`
+- Draait AliasVault binnen Home Assistant
+- Toegang via de add-on webinterface
+- Gebruikt het officiële AliasVault container-image als basis
+- Bevat add-on-specifieke aanpassingen voor Home Assistant runtime
 
-## Screenshots
+## Ondersteunde architecturen
+
+- `amd64`
+- `aarch64`
+
+## Screenshots (AliasVault)
 
 <table>
   <tr>
@@ -43,15 +60,31 @@ Deze add-on draait het officiële AliasVault image binnen Home Assistant, met ad
   </tr>
 </table>
 
-## Installatie
+## Installatie (Home Assistant)
 
 1. Ga naar **Settings → Add-ons → Add-on Store**
-2. Voeg repository toe: `https://github.com/SnyderNL/aliasvault-addon`
-3. Installeer **AliasVault**
-4. Start de add-on
-5. Open Web UI
+2. Klik rechtsboven op **⋮ → Repositories**
+3. Voeg toe: `https://github.com/SnyderNL/aliasvault-addon`
+4. Installeer **AliasVault**
+5. Start de add-on
+6. Open de webinterface
 
-## Configuratie (voorbeeld)
+## Toegang
+
+- HTTP: `http://<home-assistant-ip>:3000`
+- HTTPS: `https://<home-assistant-ip>:3443`
+
+`Open Web UI` gebruikt expliciet HTTPS.
+
+## Eigen SSL-certificaat gebruiken
+
+1. Plaats certificaatbestanden in HA `/ssl` map (bijv. `fullchain.pem` en `privkey.pem`)
+2. Open add-on configuratie
+3. Zet `ssl` op `true`
+4. Vul `certfile` en `keyfile` in
+5. Herstart de add-on
+
+Voorbeeld:
 
 ```yaml
 ssl: true
@@ -59,13 +92,27 @@ certfile: fullchain.pem
 keyfile: privkey.pem
 ```
 
-## Links
+## Known Issues
 
-- Add-on documentatie: https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md
-- Changelog: https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/CHANGELOG.md
-- Issues: https://github.com/SnyderNL/aliasvault-addon/issues
-- Upstream AliasVault: https://github.com/aliasvault/aliasvault
-## Support
+Zie: [KNOWN_ISSUES.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/KNOWN_ISSUES.md)
 
-Dit is een **onofficiële community add-on**. Voor AliasVault core issues: https://github.com/aliasvault/aliasvault
+## Roadmap
 
+Zie: [ROADMAP.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/ROADMAP.md)
+
+## Support scope
+
+- Problemen met deze Home Assistant wrapper? → **issue in deze repo**
+- Problemen in AliasVault core? → **upstream**: https://github.com/aliasvault/aliasvault
+
+## Changelog
+
+Zie: [aliasvault/CHANGELOG.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/CHANGELOG.md)
+
+## Bijdragen
+
+Zie: [CONTRIBUTING.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/CONTRIBUTING.md)
+
+## Licentie
+
+Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie [LICENSE](https://github.com/SnyderNL/aliasvault-addon/blob/main/LICENSE).

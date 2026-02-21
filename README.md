@@ -14,7 +14,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 ## Quick links
 
 - 🚀 [Installatie](#installatie-home-assistant)
-- 📚 [Add-on documentatie](./aliasvault/DOCS.md)
+- 📚 [Add-on documentatie](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md)
 - 🐞 [Issues melden](https://github.com/SnyderNL/aliasvault-addon/issues)
 - 🏷️ [Releases](https://github.com/SnyderNL/aliasvault-addon/releases)
 - 🔗 [Officieel AliasVault project](https://github.com/aliasvault/aliasvault)
@@ -74,7 +74,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 - HTTP: `http://<home-assistant-ip>:3000`
 - HTTPS: `https://<home-assistant-ip>:3443`
 
-`Open Web UI` gebruikt vanaf **v0.0.5** expliciet HTTPS om protocolfouten te voorkomen.
+`Open Web UI` gebruikt expliciet HTTPS.
 
 ## Eigen SSL-certificaat gebruiken
 
@@ -94,11 +94,11 @@ keyfile: privkey.pem
 
 ## Known Issues
 
-Zie: [KNOWN_ISSUES.md](./KNOWN_ISSUES.md)
+Zie: [KNOWN_ISSUES.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/KNOWN_ISSUES.md)
 
 ## Roadmap
 
-Zie: [ROADMAP.md](./ROADMAP.md)
+Zie: [ROADMAP.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/ROADMAP.md)
 
 ## Support scope
 
@@ -107,12 +107,12 @@ Zie: [ROADMAP.md](./ROADMAP.md)
 
 ## Changelog
 
-Zie: [aliasvault/CHANGELOG.md](./aliasvault/CHANGELOG.md)
+Zie: [aliasvault/CHANGELOG.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/CHANGELOG.md)
 
 ## Bijdragen
 
-Zie: [CONTRIBUTING.md](./CONTRIBUTING.md)
+Zie: [CONTRIBUTING.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/CONTRIBUTING.md)
 
 ## Licentie
 
-Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie [LICENSE](./LICENSE).
+Dit project is gelicenseerd onder **GNU AGPL-3.0**. Zie [LICENSE](https://github.com/SnyderNL/aliasvault-addon/blob/main/LICENSE).
