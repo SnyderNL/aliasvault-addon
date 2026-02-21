@@ -63,8 +63,14 @@ if [ "$SSL_ENABLED" = "true" ]; then
     mkdir -p "$DST_DIR"
     cp -f "$SRC_CERT" "$DST_DIR/cert.pem"
     cp -f "$SRC_KEY" "$DST_DIR/key.pem"
+
+    # Prevent upstream init from regenerating a self-signed cert on boot.
+    # AliasVault regenerates when .hostname_marker is missing or mismatched.
+    echo "${HOSTNAME:-localhost}" > "$DST_DIR/.hostname_marker"
+
     chmod 644 "$DST_DIR/cert.pem"
     chmod 600 "$DST_DIR/key.pem"
+    chmod 644 "$DST_DIR/.hostname_marker"
     echo "[ha-persist] init: custom SSL cert loaded from /ssl ($CERTFILE, $KEYFILE)"
   else
     echo "[ha-persist] init: SSL enabled but cert/key not found in /ssl, falling back to AliasVault certificate handling"
