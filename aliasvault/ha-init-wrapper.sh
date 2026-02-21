@@ -45,9 +45,10 @@ SSL_ENABLED="false"
 CERTFILE="fullchain.pem"
 KEYFILE="privkey.pem"
 
-if [ -f "$OPTIONS_FILE" ] && command -v python3 >/dev/null 2>&1; then
-  readarray -t parsed < <(
-    python3 - "$OPTIONS_FILE" <<'PY'
+if [ -f "$OPTIONS_FILE" ]; then
+  if command -v python3 >/dev/null 2>&1; then
+    readarray -t parsed < <(
+      python3 - "$OPTIONS_FILE" <<'PY'
 import json
 import sys
 
@@ -66,14 +67,30 @@ print("true" if bool(ssl) else "false")
 print(str(cert) if cert is not None else "fullchain.pem")
 print(str(key) if key is not None else "privkey.pem")
 PY
-  )
+    )
 
-  if [ "${#parsed[@]}" -ge 3 ]; then
-    SSL_ENABLED="${parsed[0]}"
-    CERTFILE="${parsed[1]}"
-    KEYFILE="${parsed[2]}"
+    if [ "${#parsed[@]}" -ge 3 ]; then
+      SSL_ENABLED="${parsed[0]}"
+      CERTFILE="${parsed[1]}"
+      KEYFILE="${parsed[2]}"
+    fi
+  else
+    # Fallback parser when python3 is unavailable in runtime image
+    ssl_val=$(grep -Eo '"ssl"[[:space:]]*:[[:space:]]*(true|false)' "$OPTIONS_FILE" | tail -n1 | grep -Eo '(true|false)' || true)
+    cert_val=$(grep -Eo '"certfile"[[:space:]]*:[[:space:]]*"[^"]+"' "$OPTIONS_FILE" | tail -n1 | sed -E 's/.*"([^"]+)"$/\1/' || true)
+    key_val=$(grep -Eo '"keyfile"[[:space:]]*:[[:space:]]*"[^"]+"' "$OPTIONS_FILE" | tail -n1 | sed -E 's/.*"([^"]+)"$/\1/' || true)
+
+    if [ -n "$ssl_val" ]; then SSL_ENABLED="$ssl_val"; fi
+    if [ -n "$cert_val" ]; then CERTFILE="$cert_val"; fi
+    if [ -n "$key_val" ]; then KEYFILE="$key_val"; fi
+
+    echo "[ha-persist] init: python3 missing, used fallback options parser"
   fi
+else
+  echo "[ha-persist] init: options file not found at $OPTIONS_FILE"
 fi
+
+echo "[ha-persist] init: ssl=$SSL_ENABLED certfile=$CERTFILE keyfile=$KEYFILE"
 
 if [ "$SSL_ENABLED" = "true" ]; then
   SRC_CERT="/ssl/$CERTFILE"

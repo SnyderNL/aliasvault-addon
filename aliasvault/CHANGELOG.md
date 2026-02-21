@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.4
+### What’s changed
+
+#### 🧪 Config parsing hardening for SSL options
+- Added a fallback parser for `/data/options.json` when `python3` is unavailable in the runtime image.
+- Added explicit init diagnostics logging of resolved SSL options (`ssl`, `certfile`, `keyfile`).
+- Prevents silent fallback to self-signed cert behavior when SSL options were not being parsed.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
 ## 0.1.3
 ### What’s changed
 
@@ -22,18 +35,6 @@ https://github.com/aliasvault/aliasvault
   - links runtime paths to persistent `/data` (`/database`, `/logs`, `/secrets`, `/certificates`)
   - imports HA `/ssl` certificate/key when `ssl=true`
   - writes `.hostname_marker` so upstream does not overwrite custom certs with self-signed `localhost` certs.
-
-### Notes
-This remains an **unofficial community add-on** for AliasVault.
-For AliasVault core issues, report upstream:
-https://github.com/aliasvault/aliasvault
-
-## 0.1.1
-### What’s changed
-
-#### 🛡️ SSL fix (Home Assistant /ssl certs)
-- Fixed a startup edge case where AliasVault could regenerate and serve a self-signed `localhost` certificate even when custom HA `/ssl` certs were configured.
-- Add-on now writes `/certificates/ssl/.hostname_marker` when importing `/ssl` cert/key, preventing unintended upstream cert regeneration.
 
 ### Notes
 This remains an **unofficial community add-on** for AliasVault.
