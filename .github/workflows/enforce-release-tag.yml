@@ -1,0 +1,34 @@
+name: Enforce Release Tag Format
+
+on:
+  release:
+    types: [published, edited]
+
+permissions:
+  contents: write
+
+jobs:
+  validate-release-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate release tag is semantic (vX.Y.Z)
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          RELEASE_ID: ${{ github.event.release.id }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+        run: |
+          echo "Checking release tag: $TAG"
+          if echo "$TAG" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "✅ Valid tag format"
+            exit 0
+          fi
+
+          echo "❌ Invalid release tag '$TAG'. Expected format: vX.Y.Z"
+          echo "Deleting invalid release to prevent Home Assistant version drift..."
+          gh api -X DELETE "/repos/$REPO/releases/$RELEASE_ID"
+
+          echo "Deleted invalid release: $RELEASE_URL"
+          echo "Create releases only through the automated version-bump flow."
+          exit 1
