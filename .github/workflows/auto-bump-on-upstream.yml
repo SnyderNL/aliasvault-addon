@@ -124,6 +124,13 @@ jobs:
               archive_path.write_text(archive_text, encoding='utf-8')
           PY
 
+      - name: Clean unrelated working tree changes
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          # Guard against unrelated dirty files (seen with repository.yaml) that can
+          # make create-pull-request fail while stashing/restoring state.
+          git restore --worktree --staged repository.yaml || true
+
       - name: Create pull request with version bump
         if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
@@ -140,5 +147,6 @@ jobs:
             - Upstream image before: `${{ steps.detect.outputs.before }}`
             - Upstream image after: `${{ steps.detect.outputs.after }}`
           branch: "automation/upstream-version-bump"
+          branch-suffix: short-commit-hash
           delete-branch: true
           labels: dependencies
