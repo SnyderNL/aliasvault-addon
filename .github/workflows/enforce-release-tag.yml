@@ -26,9 +26,10 @@ jobs:
           fi
 
           echo "❌ Invalid release tag '$TAG'. Expected format: vX.Y.Z"
-          echo "Deleting invalid release to prevent Home Assistant version drift..."
+          echo "Deleting invalid release + invalid tag to prevent Home Assistant version drift..."
           gh api -X DELETE "/repos/$REPO/releases/$RELEASE_ID"
+          gh api -X DELETE "/repos/$REPO/git/refs/tags/$TAG" || true
 
-          echo "Deleted invalid release: $RELEASE_URL"
+          echo "Deleted invalid release/tag: $RELEASE_URL ($TAG)"
           echo "Create releases only through the automated version-bump flow."
           exit 1
