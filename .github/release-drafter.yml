@@ -7,24 +7,12 @@ template: |
   #### ⬆️ Upstream AliasVault update
   $CHANGES
 
+  - Upstream release notes: https://github.com/aliasvault/aliasvault/releases
+
   ## Notes
   This remains an **unofficial community Home Assistant add-on** for AliasVault.
   For core AliasVault bugs/features, please use the upstream project:
   https://github.com/aliasvault/aliasvault
-
-categories:
-  - title: '⬆️ Dependency updates'
-    labels:
-      - dependencies
-  - title: '✨ Features'
-    labels:
-      - enhancement
-  - title: '🐛 Fixes'
-    labels:
-      - bug
-  - title: '📝 Documentation'
-    labels:
-      - documentation
 
 version-resolver:
   major:
