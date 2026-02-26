@@ -4,12 +4,12 @@ change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   ## What’s changed
 
+  #### ⬆️ Upstream AliasVault update
   $CHANGES
 
-
   ## Notes
-  This remains an **unofficial community add-on** for AliasVault.
-  For AliasVault core issues, report upstream:
+  This remains an **unofficial community Home Assistant add-on** for AliasVault.
+  For core AliasVault bugs/features, please use the upstream project:
   https://github.com/aliasvault/aliasvault
 
 categories:
