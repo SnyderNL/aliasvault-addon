@@ -64,7 +64,24 @@ jobs:
 
           before = "${{ steps.detect.outputs.before }}"
           after = "${{ steps.detect.outputs.after }}"
-          entry = f"## {new_version}\n### What’s changed\n\n#### ⬆️ Dependency updates\n- Automated upstream update: AliasVault image bumped from `{before}` to `{after}` via Renovate.\n\n### Notes\nThis remains an **unofficial community add-on** for AliasVault.\nFor AliasVault core issues, report upstream:\nhttps://github.com/aliasvault/aliasvault\n\n"
+          # Build rich notes with direct links to upstream AliasVault release details
+          after_tag = after if str(after).startswith('v') else f"v{after}"
+          before_tag = before if str(before).startswith('v') else f"v{before}"
+          release_url = f"https://github.com/aliasvault/aliasvault/releases/tag/{after_tag}"
+          compare_url = f"https://github.com/aliasvault/aliasvault/compare/{before_tag}...{after_tag}"
+
+          entry = (
+              f"## {new_version}\n"
+              f"### What’s changed\n\n"
+              f"#### ⬆️ Upstream AliasVault update\n"
+              f"- Updated bundled AliasVault image from `{before}` to `{after}` (automated via Renovate).\n"
+              f"- Upstream release notes: {release_url}\n"
+              f"- Upstream full changelog diff: {compare_url}\n\n"
+              f"### Notes\n"
+              f"This remains an **unofficial community Home Assistant add-on** for AliasVault.\n"
+              f"For core AliasVault bugs/features, please use the upstream project:\n"
+              f"https://github.com/aliasvault/aliasvault\n\n"
+          )
           text = changelog_path.read_text(encoding='utf-8')
           if text.startswith('# Changelog\n\n'):
               text = '# Changelog\n\n' + entry + text[len('# Changelog\n\n'):]
