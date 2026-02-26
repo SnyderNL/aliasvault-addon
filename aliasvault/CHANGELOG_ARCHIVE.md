@@ -2,6 +2,22 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.1.2
+### What’s changed
+
+#### 🛠️ Runtime fix for Home Assistant persistence + SSL import
+- Fixed add-on startup integration to hook into AliasVault's actual s6 init flow.
+- Replaced unused `/etc/cont-init.d` approach with an init wrapper that runs before upstream init.
+- Wrapper now:
+  - links runtime paths to persistent `/data` (`/database`, `/logs`, `/secrets`, `/certificates`)
+  - imports HA `/ssl` certificate/key when `ssl=true`
+  - writes `.hostname_marker` so upstream does not overwrite custom certs with self-signed `localhost` certs.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
 ## 0.0.9
 - Automated upstream update: AliasVault image bumped to `ghcr.io/aliasvault/aliasvault:0.26.6`.
 - Updated `peter-evans/create-pull-request` action to v8.

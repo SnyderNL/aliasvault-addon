@@ -1,46 +1,40 @@
 {
   "name": "AliasVault",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "slug": "aliasvault",
   "description": "AliasVault for Home Assistant (community add-on)",
-  "arch": ["amd64", "aarch64"],
-
+  "arch": [
+    "amd64",
+    "aarch64"
+  ],
   "startup": "services",
   "boot": "auto",
   "init": false,
-
   "webui": "https://[HOST]:[PORT:443]",
-
   "ports": {
     "80/tcp": 3000,
     "443/tcp": 3443
   },
-
   "ports_description": {
     "80/tcp": "AliasVault HTTP",
     "443/tcp": "AliasVault HTTPS (self-signed)"
   },
-
   "map": [
     "ssl"
   ],
-
   "options": {
     "ssl": false,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },
-
   "schema": {
     "ssl": "bool",
     "certfile": "str?",
     "keyfile": "str?"
   },
-
   "url": "https://github.com/SnyderNL/aliasvault-addon",
   "documentation": "https://github.com/SnyderNL/aliasvault-addon/blob/main/README.md",
   "issue_tracker": "https://github.com/SnyderNL/aliasvault-addon/issues",
-
   "environment": {
     "DATA_DIR": "/data"
   }
