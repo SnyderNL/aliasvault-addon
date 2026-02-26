@@ -1,4 +1,5 @@
-name-template: 'Release notes draft'
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   ## What’s changed
