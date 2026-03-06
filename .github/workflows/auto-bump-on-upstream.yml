@@ -51,8 +51,11 @@ jobs:
           import json
           from pathlib import Path
 
+          import re
+
           config_path = Path('aliasvault/config.json')
           changelog_path = Path('aliasvault/CHANGELOG.md')
+          readme_paths = [Path('README.md'), Path('aliasvault/README.md')]
 
           config = json.loads(config_path.read_text(encoding='utf-8'))
           old_version = config['version']
@@ -118,6 +121,15 @@ jobs:
               'Oudere wijzigingen: zie `aliasvault/CHANGELOG_ARCHIVE.md` en GitHub Releases.\n'
           changelog_path.write_text(text, encoding='utf-8')
 
+          # Keep human-readable current version line in README files in sync.
+          for readme_path in readme_paths:
+              if not readme_path.exists():
+                  continue
+              t = readme_path.read_text(encoding='utf-8')
+              nt = re.sub(r'\*\*Huidige add-on versie:\*\* `[^`]+`', f'**Huidige add-on versie:** `{new_version}`', t)
+              if nt != t:
+                  readme_path.write_text(nt, encoding='utf-8')
+
           if overflow:
               archive_path = Path('aliasvault/CHANGELOG_ARCHIVE.md')
               archive_header = '# Changelog (archief)\n\nHistorische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.\n\n'
@@ -161,7 +173,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add aliasvault/config.json aliasvault/CHANGELOG.md aliasvault/CHANGELOG_ARCHIVE.md
+          git add aliasvault/config.json aliasvault/CHANGELOG.md aliasvault/CHANGELOG_ARCHIVE.md README.md aliasvault/README.md
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
