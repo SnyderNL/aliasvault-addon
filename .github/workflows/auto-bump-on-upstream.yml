@@ -75,7 +75,8 @@ jobs:
           before = "${{ steps.detect.outputs.before }}"
           after = "${{ steps.detect.outputs.after }}"
           # Build rich notes with direct links to upstream AliasVault release details
-          after_tag = after if str(after).startswith('v') else f"v{after}"
+          # Upstream AliasVault tags are plain numbers (e.g. 0.27.1), not prefixed with 'v'.
+          after_tag = str(after).lstrip('v')
           release_url = f"https://github.com/aliasvault/aliasvault/releases/tag/{after_tag}"
 
           entry = (
