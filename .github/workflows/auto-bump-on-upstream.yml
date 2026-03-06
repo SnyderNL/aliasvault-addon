@@ -16,7 +16,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   bump-addon-version:
@@ -152,28 +151,25 @@ jobs:
       - name: Clean unrelated working tree changes
         if: steps.detect.outputs.changed == 'true'
         run: |
-          # Guard against unrelated dirty files (seen with repository.yaml) that can
-          # make create-pull-request fail while stashing/restoring state.
           git restore --worktree --staged repository.yaml || true
 
-      - name: Create pull request with version bump
+      - name: Commit and push version bump to main
         if: steps.detect.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v8
-        with:
-          # Prefer a repo secret PAT when configured; otherwise fall back to GITHUB_TOKEN.
-          token: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
-          add-paths: |
-            aliasvault/config.json
-            aliasvault/CHANGELOG.md
-            aliasvault/CHANGELOG_ARCHIVE.md
-          commit-message: "chore(release): bump add-on version after upstream AliasVault update"
-          title: "chore(release): bump add-on version after upstream AliasVault update"
-          body: |
-            Automated add-on version/changelog bump after upstream AliasVault image update.
+        env:
+          PUSH_TOKEN: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            - Upstream image before: `${{ steps.detect.outputs.before }}`
-            - Upstream image after: `${{ steps.detect.outputs.after }}`
-          branch: "automation/upstream-version-bump"
-          branch-suffix: timestamp
-          delete-branch: true
-          labels: dependencies
+          git add aliasvault/config.json aliasvault/CHANGELOG.md aliasvault/CHANGELOG_ARCHIVE.md
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(release): bump add-on version after upstream AliasVault update"
+
+          # Use PAT secret when provided; otherwise use GITHUB_TOKEN.
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+          git push origin HEAD:main
