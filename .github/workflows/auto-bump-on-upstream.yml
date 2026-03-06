@@ -7,6 +7,12 @@ on:
     paths:
       - aliasvault/Dockerfile
   workflow_dispatch:
+    inputs:
+      force_bump:
+        description: "Force add-on version/changelog bump even if no Dockerfile diff is detected"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -24,11 +30,16 @@ jobs:
       - name: Detect upstream image tag change
         id: detect
         run: |
-          BEFORE=$(git show HEAD~1:aliasvault/Dockerfile | sed -n 's/^ARG UPSTREAM_IMAGE=ghcr.io\/aliasvault\/aliasvault:\(.*\)$/\1/p' | head -n1)
+          BEFORE=$(git show HEAD~1:aliasvault/Dockerfile | sed -n 's/^ARG UPSTREAM_IMAGE=ghcr.io\/aliasvault\/aliasvault:\(.*\)$/\1/p' | head -n1 || true)
           AFTER=$(sed -n 's/^ARG UPSTREAM_IMAGE=ghcr.io\/aliasvault\/aliasvault:\(.*\)$/\1/p' aliasvault/Dockerfile | head -n1)
           echo "before=$BEFORE" >> "$GITHUB_OUTPUT"
           echo "after=$AFTER" >> "$GITHUB_OUTPUT"
-          if [ -n "$BEFORE" ] && [ -n "$AFTER" ] && [ "$BEFORE" != "$AFTER" ]; then
+
+          FORCE='${{ github.event.inputs.force_bump }}'
+          if [ "$FORCE" = "true" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Forced bump via workflow_dispatch input."
+          elif [ -n "$BEFORE" ] && [ -n "$AFTER" ] && [ "$BEFORE" != "$AFTER" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
