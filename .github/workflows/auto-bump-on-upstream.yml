@@ -145,11 +145,12 @@ jobs:
           # make create-pull-request fail while stashing/restoring state.
           git restore --worktree --staged repository.yaml || true
 
-      - name: Create pull request with version bump (repo PAT)
-        if: steps.detect.outputs.changed == 'true' && secrets.REPO_AUTOMATION_TOKEN != ''
+      - name: Create pull request with version bump
+        if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+          # Prefer a repo secret PAT when configured; otherwise fall back to GITHUB_TOKEN.
+          token: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
           add-paths: |
             aliasvault/config.json
             aliasvault/CHANGELOG.md
@@ -165,31 +166,3 @@ jobs:
           branch-suffix: short-commit-hash
           delete-branch: true
           labels: dependencies
-
-      - name: Create pull request with version bump (default GITHUB_TOKEN)
-        if: steps.detect.outputs.changed == 'true' && secrets.REPO_AUTOMATION_TOKEN == ''
-        uses: peter-evans/create-pull-request@v8
-        with:
-          add-paths: |
-            aliasvault/config.json
-            aliasvault/CHANGELOG.md
-            aliasvault/CHANGELOG_ARCHIVE.md
-          commit-message: "chore(release): bump add-on version after upstream AliasVault update"
-          title: "chore(release): bump add-on version after upstream AliasVault update"
-          body: |
-            Automated add-on version/changelog bump after upstream AliasVault image update.
-
-            - Upstream image before: `${{ steps.detect.outputs.before }}`
-            - Upstream image after: `${{ steps.detect.outputs.after }}`
-          branch: "automation/upstream-version-bump"
-          branch-suffix: short-commit-hash
-          delete-branch: true
-          labels: dependencies
-
-      - name: Explain likely permission fix when PR creation fails
-        if: failure() && steps.detect.outputs.changed == 'true'
-        run: |
-          echo "create-pull-request failed."
-          echo "If Workflow permissions are read-only, enable Read and write permissions under:"
-          echo "Settings -> Actions -> General -> Workflow permissions."
-          echo "Or add repo secret REPO_AUTOMATION_TOKEN (classic PAT or fine-grained token with contents+pull_requests write)."
