@@ -2,6 +2,20 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.1.3
+### What’s changed
+
+#### 🩹 Startup hotfix for mountpoint replacement
+- Fixed init wrapper crash on some systems where `/database` is a busy mountpoint and cannot be removed/replaced with a symlink.
+- Wrapper now detects mountpoints, skips symlink replacement safely, and seeds runtime data from `/data` when appropriate.
+
+### Notes
+This remains an **unofficial community add-on** for AliasVault.
+For AliasVault core issues, report upstream:
+https://github.com/aliasvault/aliasvault
+
+Oudere wijzigingen: zie `aliasvault/CHANGELOG_ARCHIVE.md` en GitHub Releases.
+
 ## 0.1.2
 ### What’s changed
 
