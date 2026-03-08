@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   bump-addon-version:
@@ -154,23 +155,29 @@ jobs:
         run: |
           git restore --worktree --staged repository.yaml || true
 
-      - name: Commit and push version bump to main
+      - name: Create pull request for version bump
         if: steps.detect.outputs.changed == 'true'
-        env:
-          PUSH_TOKEN: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
+          commit-message: "chore(release): bump add-on version after upstream AliasVault update"
+          branch: "ci/auto-bump-addon-version"
+          delete-branch: true
+          title: "chore(release): bump add-on version after upstream AliasVault update"
+          body: |
+            This PR was generated automatically after an upstream AliasVault image tag update.
 
-          git add aliasvault/config.json aliasvault/CHANGELOG.md aliasvault/CHANGELOG_ARCHIVE.md
+            - Previous upstream tag: `${{ steps.detect.outputs.before }}`
+            - New upstream tag: `${{ steps.detect.outputs.after }}`
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          git commit -m "chore(release): bump add-on version after upstream AliasVault update"
-
-          # Use PAT secret when provided; otherwise use GITHUB_TOKEN.
-          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
-          git push origin HEAD:main
+            It updates:
+            - `aliasvault/config.json`
+            - `aliasvault/CHANGELOG.md`
+            - `aliasvault/CHANGELOG_ARCHIVE.md`
+          labels: |
+            dependencies
+            automated
+          add-paths: |
+            aliasvault/config.json
+            aliasvault/CHANGELOG.md
+            aliasvault/CHANGELOG_ARCHIVE.md
