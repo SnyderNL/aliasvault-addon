@@ -15,6 +15,16 @@
   ],
   "packageRules": [
     {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/aliasvault/aliasvault"
+      ],
+      "prTitle": "chore(add-on): bump bundled AliasVault image to {{newValue}}",
+      "commitMessageTopic": "bundled AliasVault image"
+    },
+    {
       "matchUpdateTypes": [
         "patch",
         "pin",
