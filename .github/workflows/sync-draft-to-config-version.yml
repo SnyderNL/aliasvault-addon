@@ -1,0 +1,104 @@
+name: Sync draft release to config version
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - aliasvault/config.json
+      - aliasvault/CHANGELOG.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build desired draft metadata
+        id: meta
+        run: |
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          version = json.loads(Path('aliasvault/config.json').read_text(encoding='utf-8'))['version']
+          tag = f"v{version}"
+
+          text = Path('aliasvault/CHANGELOG.md').read_text(encoding='utf-8')
+          pattern = rf"##\s+{re.escape(version)}\n(.*?)(?=\n##\s+|\Z)"
+          m = re.search(pattern, text, flags=re.S)
+          body = (m.group(1).strip() if m else f"Release {version}")
+
+          out = Path('/tmp/release-notes.md')
+          out.write_text(body + '\n', encoding='utf-8')
+
+          with open(Path('/tmp/meta.env'), 'w', encoding='utf-8') as f:
+              f.write(f"VERSION={version}\n")
+              f.write(f"TAG={tag}\n")
+          PY
+
+          cat /tmp/meta.env >> "$GITHUB_ENV"
+
+      - name: Upsert draft release for config version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # List drafts
+          gh api "/repos/$REPO/releases?per_page=100" > /tmp/releases.json
+
+          TARGET_ID=$(python3 - <<'PY'
+          import json, os
+          rels = json.load(open('/tmp/releases.json', encoding='utf-8'))
+          tag = os.environ['TAG']
+          rid = ''
+          for r in rels:
+            if r.get('draft') and r.get('tag_name') == tag:
+              rid = str(r['id'])
+              break
+          print(rid)
+          PY
+          )
+
+          BODY="$(cat /tmp/release-notes.md)"
+
+          if [ -n "$TARGET_ID" ]; then
+            gh api -X PATCH "/repos/$REPO/releases/$TARGET_ID" \
+              -f tag_name="$TAG" \
+              -f name="$TAG" \
+              -f body="$BODY" \
+              -F draft=true \
+              -F prerelease=false >/dev/null
+          else
+            gh api -X POST "/repos/$REPO/releases" \
+              -f tag_name="$TAG" \
+              -f name="$TAG" \
+              -f body="$BODY" \
+              -f target_commitish="main" \
+              -F draft=true \
+              -F prerelease=false >/dev/null
+          fi
+
+          # Cleanup: keep only this draft
+          python3 - <<'PY' > /tmp/delete_ids.txt
+          import json, os
+          rels = json.load(open('/tmp/releases.json', encoding='utf-8'))
+          tag = os.environ['TAG']
+          for r in rels:
+              if r.get('draft') and r.get('tag_name') != tag:
+                  print(r['id'])
+          PY
+
+          while read -r rid; do
+            [ -z "$rid" ] && continue
+            gh api -X DELETE "/repos/$REPO/releases/$rid" >/dev/null || true
+          done < /tmp/delete_ids.txt
+
+          echo "✅ Draft release synced to $TAG"
