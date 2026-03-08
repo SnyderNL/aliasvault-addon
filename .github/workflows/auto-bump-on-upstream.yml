@@ -84,7 +84,7 @@ jobs:
               f"## {new_version}\n"
               f"### What’s changed\n\n"
               f"#### ⬆️ Upstream AliasVault update\n"
-              f"- Updated bundled AliasVault image from `{before}` to `{after}` (automated via Renovate).\n"
+              f"- Updated bundled AliasVault image from `{before}` to `{after}`.\n"
               f"- Upstream release notes: {release_url}\n\n"
               f"### Notes\n"
               f"This remains an **unofficial community Home Assistant add-on** for AliasVault.\n"
