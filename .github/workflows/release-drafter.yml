@@ -16,5 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: release-drafter/release-drafter@v7
+        with:
+          # On pull_request events github.ref can be refs/pull/<n>/merge,
+          # which is not a valid release target_commitish.
+          commitish: ${{ github.event.repository.default_branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
