@@ -2,6 +2,20 @@
 
 Historische wijzigingen die niet meer in de Home Assistant changelog-weergave hoeven te staan.
 
+## 0.1.5
+### What’s changed
+
+#### ⬆️ Upstream AliasVault update
+- Updated bundled AliasVault image from `0.26.6` to `0.27.0` (automated via Renovate).
+- Upstream release notes: https://github.com/aliasvault/aliasvault/releases/tag/v0.27.0
+
+### Notes
+This remains an **unofficial community Home Assistant add-on** for AliasVault.
+For core AliasVault bugs/features, please use the upstream project:
+https://github.com/aliasvault/aliasvault
+
+Oudere wijzigingen: zie `aliasvault/CHANGELOG_ARCHIVE.md` en GitHub Releases.
+
 ## 0.1.4
 ### What’s changed
 
