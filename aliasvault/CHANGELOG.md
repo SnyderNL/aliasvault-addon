@@ -4,7 +4,7 @@
 ### What’s changed
 
 #### ⬆️ Upstream AliasVault update
-- Updated bundled AliasVault image from `0.28.0` to `0.28.0`.
+- Updated bundled AliasVault image from `0.27.2` to `0.28.0`.
 - Upstream release notes: https://github.com/aliasvault/aliasvault/releases/tag/0.28.0
 
 ### Notes
