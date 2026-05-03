@@ -159,7 +159,8 @@ jobs:
         if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.REPO_AUTOMATION_TOKEN || github.token }}
+          app-id: ${{ vars.ALIASVAULT_APP_ID }}
+          private-key: ${{ secrets.ALIASVAULT_APP_PRIVATE_KEY }}
           commit-message: "chore(release): bump add-on version after upstream AliasVault update"
           branch: "ci/auto-bump-addon-version"
           delete-branch: true
