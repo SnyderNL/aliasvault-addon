@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0
+## 0.2.0
 ### What's changed
 
 #### ⬆️ Upstream AliasVault update
