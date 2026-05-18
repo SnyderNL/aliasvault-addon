@@ -75,14 +75,12 @@ jobs:
 
           before = "${{ steps.detect.outputs.before }}"
           after = "${{ steps.detect.outputs.after }}"
-          # Build rich notes with direct links to upstream AliasVault release details
-          # Upstream AliasVault tags are plain numbers (e.g. 0.27.1), not prefixed with 'v'.
           after_tag = str(after).lstrip('v')
           release_url = f"https://github.com/aliasvault/aliasvault/releases/tag/{after_tag}"
 
           entry = (
               f"## {new_version}\n"
-              f"### What’s changed\n\n"
+              f"### What's changed\n\n"
               f"#### ⬆️ Upstream AliasVault update\n"
               f"- Updated bundled AliasVault image from `{before}` to `{after}`.\n"
               f"- Upstream release notes: {release_url}\n\n"
@@ -150,17 +148,11 @@ jobs:
               archive_path.write_text(archive_text, encoding='utf-8')
           PY
 
-      - name: Clean unrelated working tree changes
-        if: steps.detect.outputs.changed == 'true'
-        run: |
-          git restore --worktree --staged repository.yaml || true
-
       - name: Create pull request for version bump
         if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          app-id: ${{ vars.ALIASVAULT_APP_ID }}
-          private-key: ${{ secrets.ALIASVAULT_APP_PRIVATE_KEY }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore(release): bump add-on version after upstream AliasVault update"
           branch: "ci/auto-bump-addon-version"
           delete-branch: true
