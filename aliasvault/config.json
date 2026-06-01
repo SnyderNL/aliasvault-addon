@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "slug": "aliasvault",
   "description": "AliasVault for Home Assistant (community add-on)",
   "arch": [
