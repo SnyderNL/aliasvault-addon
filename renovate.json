@@ -21,7 +21,9 @@
       "matchPackageNames": [
         "ghcr.io/aliasvault/aliasvault"
       ],
-      "prTitle": "chore(add-on): bump bundled AliasVault image to {{newValue}}",
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "add-on",
+      "commitMessageAction": "bump",
       "commitMessageTopic": "bundled AliasVault image"
     },
     {
