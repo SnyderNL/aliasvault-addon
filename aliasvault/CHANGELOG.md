@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.3
+### What's changed
+
+#### ⬆️ Upstream AliasVault update
+- Updated bundled AliasVault image from `0.31.1` to `0.31.2`.
+- Upstream release notes: https://github.com/aliasvault/aliasvault/releases/tag/0.31.2
+
+### Notes
+This remains an **unofficial community Home Assistant add-on** for AliasVault.
+For core AliasVault bugs/features, please use the upstream project:
+https://github.com/aliasvault/aliasvault
+
 ## 0.3.2
 ### What's changed
 
@@ -18,18 +30,6 @@ https://github.com/aliasvault/aliasvault
 #### ⬆️ Upstream AliasVault update
 - Updated bundled AliasVault image from `0.30.7` to `0.31.0`.
 - Upstream release notes: https://github.com/aliasvault/aliasvault/releases/tag/0.31.0
-
-### Notes
-This remains an **unofficial community Home Assistant add-on** for AliasVault.
-For core AliasVault bugs/features, please use the upstream project:
-https://github.com/aliasvault/aliasvault
-
-## 0.3.0
-### What's changed
-
-#### ⬆️ Upstream AliasVault update
-- Updated bundled AliasVault image from `0.30.5` to `0.30.7`.
-- Upstream release notes: https://github.com/aliasvault/aliasvault/releases/tag/0.30.7
 
 ### Notes
 This remains an **unofficial community Home Assistant add-on** for AliasVault.
