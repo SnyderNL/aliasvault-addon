@@ -2,7 +2,7 @@
 
 > ⚠️ **Unofficial community add-on**  
 > Dit project is geen officiële AliasVault distributie.  
-> Officiële projectlinks: [AliasVault GitHub](https://github.com/aliasvault/aliasvault) · [AliasVault docs](https://docs.aliasvault.net)
+> Officiële projectlinks: [AliasVault GitHub](https://github.com/aliasvault/aliasvault) · [AliasVault docs](https://docs.aliasvault.com)
 
 [![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSnyderNL%2Faliasvault-addon%2Fmain%2Faliasvault%2Fconfig.json&query=%24.version&label=version&color=orange)](https://github.com/SnyderNL/aliasvault-addon/releases)
 ![Project stage](https://img.shields.io/badge/project%20stage-community-yellow.svg)
@@ -15,7 +15,7 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 ## Quick links
 
 - 🚀 [Installatie](#installatie-home-assistant)
-- 📚 [Add-on documentatie](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md)
+- 📚 [Gebruikershandleiding](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md)
 - 🐞 [Issues melden](https://github.com/SnyderNL/aliasvault-addon/issues)
 - 🏷️ [Releases](https://github.com/SnyderNL/aliasvault-addon/releases)
 - 🔗 [Officieel AliasVault project](https://github.com/aliasvault/aliasvault)
@@ -70,14 +70,26 @@ Home Assistant add-on om **AliasVault** te draaien als self-hosted password & al
 5. Start de add-on
 6. Open de webinterface
 
+Ga daarna verder met de [gebruikershandleiding](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md):
+een kluis aanmaken, browserextensie/mobiele app koppelen en back-ups/export.
+
 ## Toegang
 
 - HTTP: `http://<home-assistant-ip>:3000`
 - HTTPS: `https://<home-assistant-ip>:3443`
 
-`Open Web UI` gebruikt expliciet HTTPS.
+`Open Web UI` gebruikt expliciet HTTPS. Bij aangepaste poorten gebruik je jouw
+ingestelde poort. Apps en extensies vragen om de API URL inclusief `/api`; de
+webapp / Client URL heeft dat achtervoegsel niet.
+
+Zie [het juiste serveradres](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md#het-juiste-serveradres)
+voor voorbeelden voor directe toegang en een bestaande reverse-proxy.
 
 ## Eigen SSL-certificaat gebruiken
+
+`ssl: false` schakelt HTTPS **niet** uit. Deze optie bepaalt of de add-on je eigen
+certificaatbestanden uit Home Assistant `/ssl` overneemt. Werkt je huidige
+certificaat-/proxyconfiguratie al, dan hoef je die niet te wijzigen.
 
 1. Plaats certificaatbestanden in HA `/ssl` map (bijv. `fullchain.pem` en `privkey.pem`)
 2. Open add-on configuratie
@@ -92,6 +104,11 @@ ssl: true
 certfile: fullchain.pem
 keyfile: privkey.pem
 ```
+
+Na certificaatvernieuwing worden de bestanden uit `/ssl` bij een volgende start
+opnieuw ingelezen. Een externe reverse-proxy beheert zijn eigen certificaten.
+Zie [HTTPS en certificaten](https://github.com/SnyderNL/aliasvault-addon/blob/main/aliasvault/DOCS.md#https-en-certificaten)
+voor certificaatnamen, vertrouwen op mobiele apparaten en diagnose.
 
 ## Known Issues
 
@@ -113,6 +130,7 @@ Zie: [aliasvault/CHANGELOG.md](https://github.com/SnyderNL/aliasvault-addon/blob
 ## Bijdragen
 
 Zie: [CONTRIBUTING.md](https://github.com/SnyderNL/aliasvault-addon/blob/main/CONTRIBUTING.md)
+en de [ontwikkelaarsdocumentatie](https://github.com/SnyderNL/aliasvault-addon/blob/main/DEVELOPMENT.md).
 
 ## Licentie
 
